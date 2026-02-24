@@ -1,0 +1,14 @@
+**/.git
+**/.gitignore
+**/node_modules
+**/.next
+**/out
+**/build
+**/.vscode
+**/.idea
+**/*.log
+**/mvnw
+**/mvnw.cmd
+**/.mvn
+target/
+!**/target/*.jar

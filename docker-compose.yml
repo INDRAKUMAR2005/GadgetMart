@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # Relational Database for Users, Orders, Inventory (ACID needed)
+  postgres:
+    image: postgres:16
+    container_name: gadgetmart-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: gadmun
+      POSTGRES_PASSWORD: gm_password_2026
+      POSTGRES_DB: gadgetmart_user # Default DB
+      TZ: UTC
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  # NoSQL Database for Aggregated Product Catalog (Unstructured Price/Feature Data)
+  mongo:
+    image: mongo:7.0
+    container_name: gadgetmart-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: gadmun
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo-data:/data/db
+
+  # In-Memory Cache for Sessions, API Responses (Amazon/Flipkart API Cache)
+  redis:
+    image: redis:7.2
+    container_name: gadgetmart-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  # Message Broker for Asynchronous Updates (Price Alerts, Order Processing)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: gadgetmart-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: gadgetmart-kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  # Search Engine for Product Discovery ("Search any gadget")
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+    container_name: gadgetmart-elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false # Simplified for dev; use strict security in prod
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # Low memory footprint
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+
+volumes:
+  postgres-data:
+  mongo-data:
+  redis-data:
+  es-data:

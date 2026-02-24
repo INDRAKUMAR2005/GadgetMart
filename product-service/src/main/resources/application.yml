@@ -1,0 +1,26 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: product-service
+  data:
+    mongodb:
+      uri: mongodb://gadmun:password@localhost:27017/gadgetmart_product?authSource=admin
+    redis:
+      host: localhost
+      port: 6379
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+apify:
+  token: ${APIFY_TOKEN}
+
+unsplash:
+  access-key: ${UNSPLASH_ACCESS_KEY}
+  secret-key: ${UNSPLASH_SECRET_KEY}

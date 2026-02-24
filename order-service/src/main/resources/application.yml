@@ -1,0 +1,34 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gadgetmart_order?options=-c%20timezone=UTC
+    username: gadmun
+    password: gm_password_2026
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-init-sql: SET TIME ZONE 'UTC'
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
