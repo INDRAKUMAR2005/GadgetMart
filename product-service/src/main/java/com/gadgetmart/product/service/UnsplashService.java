@@ -13,7 +13,7 @@ import java.util.Map;
 @Slf4j
 public class UnsplashService {
 
-    @Value("${unsplash.access-key}")
+    @Value("${unsplash.access-key:}")
     private String accessKey;
 
     private final RestTemplate restTemplate = new RestTemplate();
