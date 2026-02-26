@@ -1,9 +1,9 @@
 # Build stage
 FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
 WORKDIR /app
-COPY pom.xml .
-COPY product-service/pom.xml product-service/
-COPY product-service/src product-service/src
+# Copy everything from the root
+COPY . .
+# Build only the product-service module
 RUN mvn clean package -DskipTests -pl product-service -am
 
 # Run stage

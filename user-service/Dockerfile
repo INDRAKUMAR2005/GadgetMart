@@ -1,9 +1,7 @@
 # Build stage
 FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
 WORKDIR /app
-COPY pom.xml .
-COPY user-service/pom.xml user-service/
-COPY user-service/src user-service/src
+COPY . .
 RUN mvn clean package -DskipTests -pl user-service -am
 
 # Run stage

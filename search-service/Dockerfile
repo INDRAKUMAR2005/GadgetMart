@@ -1,9 +1,7 @@
 # Build stage
 FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
 WORKDIR /app
-COPY pom.xml .
-COPY search-service/pom.xml search-service/
-COPY search-service/src search-service/src
+COPY . .
 RUN mvn clean package -DskipTests -pl search-service -am
 
 # Run stage

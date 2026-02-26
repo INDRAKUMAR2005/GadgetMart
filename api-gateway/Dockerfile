@@ -1,9 +1,7 @@
 # Build stage
 FROM maven:3.9.6-eclipse-temurin-21-jammy AS build
 WORKDIR /app
-COPY pom.xml .
-COPY api-gateway/pom.xml api-gateway/
-COPY api-gateway/src api-gateway/src
+COPY . .
 RUN mvn clean package -DskipTests -pl api-gateway -am
 
 # Run stage
