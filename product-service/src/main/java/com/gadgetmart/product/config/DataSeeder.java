@@ -85,11 +85,19 @@ public class DataSeeder implements CommandLineRunner {
 
                         List<PlatformPrice> prices = new ArrayList<>();
                         prices.add(createPrice("Amazon", basePrice.add(BigDecimal.valueOf(random.nextInt(2000) - 1000)),
-                                        random));
+                                        name));
                         prices.add(createPrice("Flipkart",
-                                        basePrice.add(BigDecimal.valueOf(random.nextInt(2000) - 1000)), random));
+                                        basePrice.add(BigDecimal.valueOf(random.nextInt(2000) - 1000)), name));
+                        prices.add(createPrice("Meesho",
+                                        basePrice.subtract(BigDecimal.valueOf(2000 + random.nextInt(5000))), name));
+                        prices.add(createPrice("Zepto", basePrice.add(BigDecimal.valueOf(1000 + random.nextInt(2000))),
+                                        name));
+                        prices.add(createPrice("Shopify", basePrice.add(BigDecimal.valueOf(random.nextInt(1000))),
+                                        name));
+                        prices.add(createPrice("Swiggy Instamart",
+                                        basePrice.add(BigDecimal.valueOf(500 + random.nextInt(1500))), name));
                         prices.add(createPrice("GadgetMart",
-                                        basePrice.subtract(BigDecimal.valueOf(random.nextInt(3000) + 1000)), random));
+                                        basePrice.subtract(BigDecimal.valueOf(random.nextInt(3000) + 1000)), name));
 
                         Product product = Product.builder()
                                         .name(name)
@@ -117,8 +125,19 @@ public class DataSeeder implements CommandLineRunner {
                                         .category(cat)
                                         .description("Advanced " + cat + " with premium build and latest specs.")
                                         .imageUrl(getGenericImage(cat, i))
-                                        .prices(List.of(createPrice("GadgetMart",
-                                                        BigDecimal.valueOf(5000 + random.nextInt(50000)), random)))
+                                        .prices(List.of(
+                                                        createPrice("Amazon",
+                                                                        BigDecimal.valueOf(
+                                                                                        6000 + random.nextInt(45000)),
+                                                                        name),
+                                                        createPrice("Flipkart",
+                                                                        BigDecimal.valueOf(
+                                                                                        5800 + random.nextInt(46000)),
+                                                                        name),
+                                                        createPrice("GadgetMart",
+                                                                        BigDecimal.valueOf(
+                                                                                        5000 + random.nextInt(40000)),
+                                                                        name)))
                                         .lastUpdated(LocalDateTime.now())
                                         .build());
                 }
@@ -143,13 +162,25 @@ public class DataSeeder implements CommandLineRunner {
         private String[] brands = { "Apple", "Samsung", "Sony", "Dell", "ASUS", "Google", "Microsoft", "Logitech",
                         "DJI", "GoPro" };
 
-        private PlatformPrice createPrice(String platform, BigDecimal price, Random random) {
+        private PlatformPrice createPrice(String platform, BigDecimal price, String productName) {
+                String searchUrl = switch (platform.toLowerCase()) {
+                        case "amazon" -> "https://www.amazon.in/s?k=" + productName.replace(" ", "+");
+                        case "flipkart" -> "https://www.flipkart.com/search?q=" + productName.replace(" ", "%20");
+                        case "meesho" -> "https://www.meesho.com/search?q=" + productName.replace(" ", "%20");
+                        case "zepto" -> "https://www.zeptonow.com/search?query=" + productName.replace(" ", "%20");
+                        case "shopify" ->
+                                "https://www.google.com/search?q=site:myshopify.com+" + productName.replace(" ", "+");
+                        case "swiggy instamart" ->
+                                "https://www.swiggy.com/instamart/search?q=" + productName.replace(" ", "%20");
+                        default -> "#";
+                };
+
                 return PlatformPrice.builder()
                                 .platformName(platform)
                                 .price(price.max(BigDecimal.valueOf(500)))
                                 .currency("INR")
                                 .available(true)
-                                .platformProductUrl("https://" + platform.toLowerCase() + ".com/search?q=gadget")
+                                .platformProductUrl(searchUrl)
                                 .fetchedAt(LocalDateTime.now())
                                 .build();
         }

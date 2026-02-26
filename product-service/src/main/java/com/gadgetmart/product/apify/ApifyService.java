@@ -79,6 +79,10 @@ public class ApifyService {
                     String merchant = item.path("merchantName").asText("Unknown Store");
                     String priceStr = item.path("price").asText("0");
                     String link = item.path("merchantLink").asText("");
+                    if (link.isEmpty())
+                        link = item.path("productLink").asText("");
+                    if (link.isEmpty())
+                        link = item.path("url").asText("");
 
                     // Cleanup price string (e.g., "₹12,999" -> 12999)
                     priceStr = priceStr.replaceAll("[^\\d.]", "");

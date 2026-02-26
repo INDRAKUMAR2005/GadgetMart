@@ -8,7 +8,7 @@ spring:
     mongodb:
       uri: ${SPRING_DATA_MONGODB_URI:mongodb://gadmun:password@localhost:27017/gadgetmart_product?authSource=admin}
     redis:
-      host: redis.railway.internal
+      host: ${REDIS_HOST:localhost}
       port: 6379
 
 eureka:
@@ -16,7 +16,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://discovery-service.railway.internal:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8761/eureka/}
 
 apify:
   token: ${APIFY_TOKEN}

@@ -18,71 +18,79 @@ export default function CartPage() {
     const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
     const handleCheckout = () => {
-        // For now, redirect to the first item's checkout or a combined checkout
         if (cart.length > 0) {
-            const first = cart[0];
-            router.push(`/checkout?product=Multiple Items&amount=${total}`);
+            router.push(`/checkout?product=Multiple Archive Units&amount=${total}`);
         }
     };
 
     return (
-        <div className='min-h-screen bg-white text-zinc-950 selection:bg-blue-100 pb-32'>
-            <div className='fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-50/50 via-transparent to-transparent -z-10' />
+        <div className='min-h-screen bg-[#020617] text-[#f8fafc] selection:bg-[#d4af37]/30 pb-48 relative overflow-hidden'>
+            {/* Elite Background Effects */}
+            <div className='fixed inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(59,130,246,0.1)_0%,_transparent_50%),_radial-gradient(circle_at_bottom_left,_rgba(212,175,55,0.05)_0%,_transparent_40%)] -z-10' />
+            <div className="fixed top-0 left-0 w-full h-full opacity-10 pointer-events-none -z-10" style={{ backgroundImage: 'radial-gradient(#ffffff05 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
-            {/* Header */}
-            <nav className="fixed top-0 left-0 right-0 z-40 bg-white/70 backdrop-blur-xl border-b border-zinc-100 px-6 py-4">
-                <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <div className="text-2xl font-black tracking-tighter cursor-pointer flex items-center gap-2" onClick={() => router.push('/')}>
-                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-lg font-black">GM</div>
-                        <span>Gadget<span className="text-blue-600">Mart</span></span>
+            {/* Premium Header */}
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f172a]/40 backdrop-blur-2xl border-b border-white/5 px-10 py-6">
+                <div className="max-w-[1400px] mx-auto flex justify-between items-center">
+                    <div className="text-3xl font-black tracking-tighter cursor-pointer flex items-center gap-4 group" onClick={() => router.push('/')}>
+                        <div className="w-12 h-12 bg-[#020617] gold-border rounded-xl flex items-center justify-center text-[#d4af37] text-xl font-black group-hover:scale-110 transition-all duration-700">GM</div>
+                        <span className="uppercase italic gradient-text">GadgetMart<span className="opacity-20 italic">.Archive</span></span>
                     </div>
-                    <button onClick={() => router.push('/')} className="text-xs font-black uppercase tracking-widest text-zinc-400 hover:text-blue-600 transition-colors">Back to Store</button>
+                    <button onClick={() => router.push('/')} className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 hover:text-[#d4af37] transition-all">Back to Protocols</button>
                 </div>
             </nav>
 
-            <main className='pt-40 max-w-5xl mx-auto px-6'>
-                <div className='flex items-end justify-between mb-16'>
+            <main className='pt-48 max-w-7xl mx-auto px-10'>
+                <div className='flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 animate-in-bespoke'>
                     <div>
-                        <h1 className='text-6xl font-black tracking-tighter text-zinc-900'>Your Cart.</h1>
-                        <p className='text-zinc-500 font-medium text-xl mt-2'>Review your selected tech deals.</p>
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#d4af37] mb-4">Storage Hub</h4>
+                        <h1 className='text-7xl font-black tracking-tighter text-white uppercase italic leading-none'>Repository.</h1>
+                        <p className='text-zinc-500 font-bold text-xl mt-4 uppercase tracking-tight'>Review your pending hardware allocations.</p>
                     </div>
                     {cart.length > 0 && (
-                        <button onClick={clearCart} className='text-xs font-black uppercase tracking-widest text-red-500 hover:text-red-600'>Clear All</button>
+                        <button onClick={clearCart} className='text-[10px] font-black uppercase tracking-[0.3em] text-[#d4af37]/60 hover:text-red-500 transition-all border-b border-[#d4af37]/20 pb-2 w-fit'>Purge Archive Data</button>
                     )}
                 </div>
 
                 {cart.length === 0 ? (
-                    <div className='text-center py-32 bg-zinc-50 rounded-[3rem] border-2 border-dashed border-zinc-200'>
-                        <span className='text-6xl block mb-6'>🛒</span>
-                        <h2 className='text-3xl font-black text-zinc-900 mb-4'>Cart is empty.</h2>
-                        <p className='text-zinc-500 font-medium mb-12'>You haven't added any deals yet.</p>
-                        <button onClick={() => router.push('/')} className='bg-zinc-950 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-600 transition-all'>Start Shopping</button>
+                    <div className='text-center py-48 glass-card rounded-[4rem] border border-white/5 animate-in-bespoke relative overflow-hidden'>
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#3b82f6]/5 blur-[80px] -z-10 opacity-30" />
+                        <span className='text-7xl block mb-10 opacity-20 filter grayscale'>🧊</span>
+                        <h2 className='text-4xl font-black text-white uppercase tracking-tighter mb-4'>Archive Offline.</h2>
+                        <p className='text-zinc-500 font-bold mb-16 uppercase tracking-widest text-sm'>No hardware units have been designated for acquisition.</p>
+                        <button onClick={() => router.push('/')} className='premium-btn px-16 py-6 rounded-2xl text-[10px] uppercase tracking-[0.4em]'>Initialize Scanner</button>
                     </div>
                 ) : (
-                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-12'>
-                        <div className='lg:col-span-2 space-y-6'>
-                            {cart.map((item) => (
-                                <div key={item.id + item.platform} className='bg-white p-6 rounded-[2rem] border-2 border-zinc-100 flex items-center gap-6 group hover:border-blue-200 transition-all'>
-                                    <div className='w-24 h-24 rounded-2xl overflow-hidden border border-zinc-100 shrink-0 bg-zinc-50'>
-                                        <img src={item.image} alt={item.name} className='w-full h-full object-cover' />
+                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-16'>
+                        <div className='lg:col-span-2 space-y-8'>
+                            {cart.map((item, idx) => (
+                                <div key={item.id + item.platform} className='glass-card p-8 rounded-[3rem] border border-white/5 flex flex-col md:flex-row md:items-center gap-10 group hover:border-[#d4af37]/20 transition-all duration-700 animate-in-bespoke' style={{ animationDelay: `${idx * 100}ms` }}>
+                                    <div className='w-32 h-32 rounded-[2rem] overflow-hidden bg-[#020617] gold-border p-2 shrink-0 group-hover:rotate-3 transition-all duration-700'>
+                                        <img src={item.image} alt={item.name} className='w-full h-full object-cover rounded-[1.5rem] opacity-70 group-hover:opacity-100' />
                                     </div>
                                     <div className='flex-grow'>
                                         <div className='flex justify-between items-start'>
                                             <div>
-                                                <h3 className='text-xl font-black text-zinc-900 leading-tight'>{item.name}</h3>
-                                                <p className='text-xs font-bold text-blue-600 uppercase tracking-widest mt-1'>{item.platform}</p>
+                                                <h3 className='text-2xl font-black text-white tracking-tighter uppercase mb-2'>{item.name}</h3>
+                                                <div className="inline-flex items-center gap-2 bg-[#d4af37]/5 px-4 py-1.5 rounded-full border border-[#d4af37]/10">
+                                                    <span className='w-1.5 h-1.5 rounded-full bg-[#d4af37]'></span>
+                                                    <p className='text-[10px] font-black text-[#d4af37] uppercase tracking-widest leading-none'>{item.platform}</p>
+                                                </div>
                                             </div>
-                                            <button onClick={() => removeFromCart(item.id, item.platform)} className='text-zinc-300 hover:text-red-500 transition-colors'>
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                                            <button onClick={() => removeFromCart(item.id, item.platform)} className='w-10 h-10 rounded-full flex items-center justify-center text-zinc-600 hover:text-red-500 hover:bg-red-500/5 transition-all'>
+                                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
                                             </button>
                                         </div>
-                                        <div className='flex justify-between items-center mt-6'>
-                                            <div className='flex items-center bg-zinc-100 rounded-xl px-2 py-1'>
-                                                <button onClick={() => updateQuantity(item.id, item.platform, item.quantity - 1)} className='w-8 h-8 flex items-center justify-center font-black'>-</button>
-                                                <span className='w-12 text-center font-black text-sm'>{item.quantity}</span>
-                                                <button onClick={() => updateQuantity(item.id, item.platform, item.quantity + 1)} className='w-8 h-8 flex items-center justify-center font-black'>+</button>
+                                        <div className='flex justify-between items-center mt-10'>
+                                            <div className='flex items-center bg-[#0f172a]/50 rounded-2xl p-2 border border-white/5'>
+                                                <button onClick={() => updateQuantity(item.id, item.platform, item.quantity - 1)} className='w-10 h-10 flex items-center justify-center font-black text-zinc-500 hover:text-white'>-</button>
+                                                <span className='w-12 text-center font-black text-sm text-[#d4af37]'>{item.quantity}</span>
+                                                <button onClick={() => updateQuantity(item.id, item.platform, item.quantity + 1)} className='w-10 h-10 flex items-center justify-center font-black text-zinc-500 hover:text-white'>+</button>
                                             </div>
-                                            <p className='text-xl font-black text-zinc-900'>₹{(item.price * item.quantity).toLocaleString()}</p>
+                                            <div className="flex items-baseline gap-2">
+                                                <span className="text-xs font-bold text-[#d4af37]">₹</span>
+                                                <p className='text-3xl font-black text-white italic tracking-tighter text-right'>{(item.price * item.quantity).toLocaleString()}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -90,28 +98,40 @@ export default function CartPage() {
                         </div>
 
                         <div className='lg:col-span-1'>
-                            <div className='bg-zinc-950 text-white p-10 rounded-[3rem] sticky top-40 shadow-2xl shadow-zinc-950/20'>
-                                <h2 className='text-xs font-black uppercase tracking-[0.3em] text-zinc-500 mb-8'>Order Summary</h2>
-                                <div className='space-y-4 mb-12'>
-                                    <div className='flex justify-between items-center text-zinc-400 font-bold'>
-                                        <span>Subtotal</span>
-                                        <span>₹{total.toLocaleString()}</span>
+                            <div className='glass-card p-12 rounded-[4rem] sticky top-40 border border-[#d4af37]/10 shadow-[0_40px_100px_rgba(0,0,0,0.5)] overflow-hidden group'>
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-[#3b82f6]/5 blur-[80px] -z-10 group-hover:bg-[#d4af37]/10 transition-all" />
+
+                                <h2 className='text-[10px] font-black uppercase tracking-[0.5em] text-[#d4af37] mb-12'>Financial Index</h2>
+
+                                <div className='space-y-8 mb-16'>
+                                    <div className='flex justify-between items-center text-zinc-500 font-bold'>
+                                        <span className="text-[10px] uppercase tracking-widest">Base Valuation</span>
+                                        <span className="text-white">₹{total.toLocaleString()}</span>
                                     </div>
-                                    <div className='flex justify-between items-center text-zinc-400 font-bold'>
-                                        <span>Tax (GST)</span>
-                                        <span>₹0</span>
+                                    <div className='flex justify-between items-center text-zinc-500 font-bold'>
+                                        <span className="text-[10px] uppercase tracking-widest">Protocol Fee</span>
+                                        <span className="text-[#d4af37]">Waived</span>
                                     </div>
-                                    <div className='pt-4 border-t border-zinc-800 flex justify-between items-center'>
-                                        <span className='text-sm font-black uppercase tracking-widest'>Total</span>
-                                        <span className='text-4xl font-black'>₹{total.toLocaleString()}</span>
+                                    <div className='pt-10 border-t border-white/5 flex flex-col gap-4'>
+                                        <span className='text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600'>Net Allocated Amount</span>
+                                        <div className="flex items-baseline gap-3">
+                                            <span className="text-2xl font-black text-[#d4af37]">₹</span>
+                                            <span className='text-6xl font-black text-white italic tracking-tighter leading-none'>{total.toLocaleString()}</span>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <button
                                     onClick={handleCheckout}
-                                    className='w-full bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-[1.5rem] font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 active:scale-95'
+                                    className='premium-btn w-full py-7 rounded-2xl text-[10px] uppercase tracking-[0.4em] transition-all flex items-center justify-center gap-4 group/btn'
                                 >
-                                    Confirm & Pay
+                                    Confirm Transmission
+                                    <svg className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
                                 </button>
+
+                                <p className="text-center text-[9px] font-black text-zinc-700 uppercase tracking-[0.3em] mt-10">
+                                    Secure Reserve Protocol v4.0.1
+                                </p>
                             </div>
                         </div>
                     </div>

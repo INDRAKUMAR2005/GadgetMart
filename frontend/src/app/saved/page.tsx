@@ -54,63 +54,76 @@ export default function SavedPage() {
     };
 
     return (
-        <div className='min-h-screen bg-white text-zinc-950 p-12'>
-            <div className="max-w-7xl mx-auto">
-                <div className="flex items-center justify-between mb-12">
+        <div className='min-h-screen bg-[#020617] text-[#f8fafc] selection:bg-[#d4af37]/30 p-12 lg:p-24 relative overflow-hidden'>
+            {/* Elite Background Effects */}
+            <div className='fixed inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(59,130,246,0.1)_0%,_transparent_50%),_radial-gradient(circle_at_top_right,_rgba(212,175,55,0.05)_0%,_transparent_40%)] -z-10' />
+            <div className="fixed top-0 left-0 w-full h-full opacity-10 pointer-events-none -z-10" style={{ backgroundImage: 'radial-gradient(#ffffff05 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+
+            <div className="max-w-[1400px] mx-auto animate-in-bespoke">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24">
                     <div>
-                        <h1 className="text-5xl font-black tracking-tighter">Saved <span className="text-blue-600">Gadgets</span></h1>
-                        <p className="text-zinc-500 font-medium">Your personal collection of premium tech.</p>
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#d4af37] mb-6">Secured Storage</h4>
+                        <h1 className="text-8xl font-black tracking-tighter uppercase italic leading-none">The Vault.</h1>
+                        <p className="text-zinc-500 font-bold text-xl mt-6 uppercase tracking-tight">Your curated hardware portfolio.</p>
                     </div>
                     <button
                         onClick={() => router.push('/')}
-                        className="bg-zinc-100 px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-zinc-200 transition-all"
+                        className="bg-[#0f172a] gold-border px-10 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] text-[#d4af37] hover:bg-[#d4af37]/5 transition-all w-fit"
                     >
-                        ← Back to Store
+                        ← Return to Interface
                     </button>
                 </div>
 
                 {loading ? (
-                    <div className="text-center py-20">
-                        <div className="animate-spin w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
-                        <p className="font-bold text-zinc-400 uppercase tracking-widest text-xs">Loading collection...</p>
+                    <div className="flex flex-col items-center justify-center py-48 text-center">
+                        <div className="w-16 h-16 border-2 border-[#d4af37]/20 border-t-[#d4af37] rounded-full animate-spin mb-10"></div>
+                        <p className="font-black text-zinc-500 uppercase tracking-[0.5em] text-[10px]">Synchronizing Vault Data</p>
                     </div>
                 ) : savedProducts.length === 0 ? (
-                    <div className="text-center py-32 bg-zinc-50 rounded-[3rem] border-2 border-dashed border-zinc-200">
-                        <span className="text-6xl block mb-6">🏜️</span>
-                        <h3 className="text-2xl font-black mb-2">Collection Empty</h3>
-                        <p className="text-zinc-500 mb-8">You haven't saved any gadgets yet.</p>
+                    <div className="text-center py-48 glass-card rounded-[4rem] border border-white/5 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#3b82f6]/5 blur-[80px] -z-10 opacity-30" />
+                        <span className="text-7xl block mb-12 opacity-20 filter grayscale">🔱</span>
+                        <h3 className="text-4xl font-black text-white uppercase tracking-tighter mb-6">Vault Unallocated.</h3>
+                        <p className="text-zinc-500 font-bold mb-16 uppercase tracking-widest text-sm">No hardware assets have been registered in this sector.</p>
                         <button
                             onClick={() => router.push('/')}
-                            className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-blue-600/20"
+                            className="premium-btn px-16 py-6 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em]"
                         >
-                            Start Exploring
+                            Acquire New Assets
                         </button>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                         {savedProducts.map((product, i) => (
-                            <div key={i} className="glass-card p-6 rounded-[2.5rem] border border-zinc-100 hover:border-blue-200 transition-all group">
-                                <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-6 border border-zinc-50">
-                                    <img src={product.imageUrl} alt={product.productName} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                            <div key={i} className="glass-card p-10 rounded-[3.5rem] border border-white/5 hover:border-[#d4af37]/30 transition-all duration-700 group relative">
+                                <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-10 bg-[#020617] gold-border p-3">
+                                    <img src={product.imageUrl} alt={product.productName} className="w-full h-full object-cover rounded-[2rem] opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-40" />
                                     <button
                                         onClick={() => removeSaved(product.productName)}
-                                        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all"
+                                        className="absolute top-8 right-8 w-12 h-12 rounded-2xl bg-[#0f172a]/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-zinc-400 hover:text-red-500 hover:border-red-500/30 transition-all z-20"
                                     >
-                                        ✕
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
                                     </button>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{product.brand}</span>
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-[#d4af37]" />
+                                        <span className="text-[10px] font-black text-[#d4af37] uppercase tracking-[0.3em]">{product.brand}</span>
                                     </div>
-                                    <h3 className="text-xl font-black mb-4 truncate">{product.productName}</h3>
-                                    <div className="flex items-center justify-between">
-                                        <p className="text-2xl font-black text-zinc-950">₹{product.price?.toLocaleString()}</p>
+                                    <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none group-hover:translate-x-1 transition-transform">{product.productName}</h3>
+
+                                    <div className="pt-8 border-t border-white/5 flex items-center justify-between">
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-xl font-black text-[#d4af37]">₹</span>
+                                            <p className="text-4xl font-black text-white italic tracking-tighter">{product.price?.toLocaleString()}</p>
+                                        </div>
                                         <button
                                             onClick={() => router.push(`/?q=${encodeURIComponent(product.productName)}`)}
-                                            className="bg-zinc-950 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-all"
+                                            className="premium-btn px-8 py-4 rounded-xl text-[9px] font-black uppercase tracking-[0.3em] flex items-center gap-2 group/btn"
                                         >
-                                            View Deals
+                                            View Intel
+                                            <svg className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
                                         </button>
                                     </div>
                                 </div>

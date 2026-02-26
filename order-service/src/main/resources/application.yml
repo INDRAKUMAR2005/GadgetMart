@@ -5,10 +5,12 @@ spring:
   application:
     name: order-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/gadgetmart_order?options=-c%20timezone=UTC
-    username: gadmun
-    password: gm_password_2026
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/gadgetmart_order?options=-c%20timezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:gadmun}
+    password: ${SPRING_DATASOURCE_PASSWORD:gm_password_2026}
     driver-class-name: org.postgresql.Driver
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     hikari:
       connection-init-sql: SET TIME ZONE 'UTC'
   jpa:
@@ -25,7 +27,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://discovery-service.railway.internal:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8761/eureka/}
 
 management:
   endpoints:

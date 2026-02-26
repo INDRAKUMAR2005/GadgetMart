@@ -74,38 +74,51 @@ export default function Chatbot() {
     };
 
     return (
-        <div className="fixed bottom-8 right-8 z-[100]">
-            {/* Launcher Button */}
+        <div className="fixed bottom-12 right-12 z-[100]">
+            {/* Elite Launcher Button with Hyper-Glow */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-16 h-16 bg-blue-600 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group"
+                className="w-24 h-24 bg-[#020617] rounded-[2rem] shadow-[0_20px_50px_rgba(59,130,246,0.2)] flex flex-col items-center justify-center hover:scale-110 active:scale-95 transition-all duration-700 gold-border group relative overflow-hidden"
             >
+                {/* Dynamic Pulse Effects */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/20 via-transparent to-[#d4af37]/10 opacity-60 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#d4af37]/40 to-[#3b82f6]/40 rounded-[2rem] blur opacity-20 group-hover:opacity-40 animate-pulse transition-opacity" />
+
                 {isOpen ? (
-                    <span className="text-white text-2xl">✕</span>
+                    <span className="text-[#d4af37] text-3xl font-black relative z-10 transition-transform duration-500 hover:rotate-90">✕</span>
                 ) : (
-                    <div className="relative">
-                        <span className="text-white text-3xl">🤖</span>
-                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full animate-pulse"></span>
+                    <div className="relative z-10 flex flex-col items-center gap-1.5 translate-y-0.5">
+                        <div className="text-3xl filter drop-shadow-[0_0_8px_rgba(212,175,55,0.4)] transition-all group-hover:scale-110">🏛️</div>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#d4af37] leading-none">Concierge</span>
+                        <div className="w-1 h-1 rounded-full bg-[#3b82f6] animate-ping" />
                     </div>
                 )}
             </button>
 
-            {/* Chat Window */}
+            {/* Premium Chat Window */}
             {isOpen && (
-                <div className="absolute bottom-20 right-0 w-96 h-[500px] bg-white rounded-[2.5rem] shadow-2xl border border-zinc-100 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-10 duration-300">
-                    {/* Header */}
-                    <div className="p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-                        <h3 className="font-bold text-lg">GadgetBot AI</h3>
-                        <p className="text-xs text-blue-100 italic">Powered by Gemini</p>
+                <div className="absolute bottom-28 right-0 w-[440px] h-[640px] bg-[#020617] rounded-[3.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/5 overflow-hidden flex flex-col animate-in-bespoke z-50">
+                    {/* Header: Sapphire Terminal Aesthetic */}
+                    <div className="p-10 bg-[#0f172a]/50 backdrop-blur-3xl border-b border-white/5 flex items-center justify-between relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#3b82f6]/5 blur-3xl -z-10" />
+                        <div>
+                            <h3 className="font-black text-2xl tracking-tighter gradient-text uppercase italic">Intelligence Hub</h3>
+                            <div className="flex items-center gap-2.5 mt-2">
+                                <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
+                                <p className="text-[10px] font-black text-[#d4af37]/60 uppercase tracking-[0.3em]">Encrypted Session Active</p>
+                            </div>
+                        </div>
+                        <div className="w-14 h-14 rounded-2xl bg-[#020617] gold-border flex items-center justify-center text-2xl shadow-xl">🔱</div>
                     </div>
 
-                    {/* Messages */}
-                    <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50">
+                    {/* Messages with Custom Scrollbar */}
+                    <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-8 bg-[#020617]/50 custom-scrollbar relative">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.03)_0%,_transparent_70%)] pointer-events-none" />
                         {messages.map((msg, i) => (
                             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[80%] p-4 rounded-3xl text-sm ${msg.role === 'user'
-                                    ? 'bg-blue-600 text-white rounded-tr-none'
-                                    : 'bg-white text-zinc-800 shadow-sm border border-zinc-100 rounded-tl-none'
+                                <div className={`max-w-[85%] p-6 rounded-[2.5rem] text-[13px] leading-relaxed shadow-lg ${msg.role === 'user'
+                                    ? 'bg-[#d4af37] text-[#020617] font-black rounded-tr-none'
+                                    : 'bg-[#0f172a] text-[#f8fafc] border border-white/5 rounded-tl-none font-medium'
                                     }`}>
                                     {msg.content}
                                 </div>
@@ -113,30 +126,32 @@ export default function Chatbot() {
                         ))}
                         {isLoading && (
                             <div className="flex justify-start">
-                                <div className="bg-white p-4 rounded-3xl shadow-sm border border-zinc-100 rounded-tl-none flex gap-1">
-                                    <div className="w-1.5 h-1.5 bg-zinc-300 rounded-full animate-bounce"></div>
-                                    <div className="w-1.5 h-1.5 bg-zinc-300 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                                    <div className="w-1.5 h-1.5 bg-zinc-300 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                                <div className="bg-[#0f172a] p-6 rounded-[2.5rem] border border-white/5 rounded-tl-none flex gap-2 self-start">
+                                    <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce"></div>
+                                    <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                                    <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce [animation-delay:0.4s]"></div>
                                 </div>
                             </div>
                         )}
                     </div>
 
-                    {/* Input */}
-                    <div className="p-4 bg-white border-t border-zinc-100 flex gap-2">
-                        <input
-                            type="text"
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                            placeholder="Ask anything..."
-                            className="flex-1 bg-zinc-100 border-none rounded-2xl px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500"
-                        />
+                    {/* Input Bar: Sleek Interface */}
+                    <div className="p-8 bg-[#0f172a]/30 backdrop-blur-3xl border-t border-white/5 flex gap-4 items-center">
+                        <div className="flex-1 relative group">
+                            <input
+                                type="text"
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                                placeholder="Consult with AI Core..."
+                                className="w-full bg-[#020617] border border-white/10 rounded-2xl px-6 py-5 text-sm text-white focus:outline-none focus:border-[#d4af37]/50 transition-all placeholder:text-zinc-700 font-medium"
+                            />
+                        </div>
                         <button
                             onClick={handleSend}
-                            className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700"
+                            className="w-16 h-16 premium-btn rounded-2xl flex items-center justify-center active:scale-95 shadow-xl group/btn"
                         >
-                            ➤
+                            <svg className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
                         </button>
                     </div>
                 </div>

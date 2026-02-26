@@ -39,10 +39,10 @@ export default function LoginPage() {
                 setStep(2);
                 setTimer(60);
             } else {
-                setError(data.message || 'Failed to send OTP');
+                setError(data.message || 'Failed to send verification code');
             }
         } catch (err) {
-            setError('Connection error. Please try again.');
+            setError('Neural link error. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -65,72 +65,89 @@ export default function LoginPage() {
                     router.push('/');
                 }
             } else {
-                setError(data.message || 'Invalid OTP');
+                setError(data.message || 'Verification failure. Invalid payload.');
             }
         } catch (err) {
-            setError('Verification failed. Try again.');
+            setError('Verification matrix failed. Try again.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-zinc-50 flex flex-col justify-center items-center px-6 selection:bg-blue-100">
-            <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-transparent to-transparent -z-10" />
+        <div className="min-h-screen bg-[#020617] text-[#f8fafc] flex flex-col justify-center items-center px-6 selection:bg-[#d4af37]/30 relative overflow-hidden">
+            {/* Elite Background Effects */}
+            <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(59,130,246,0.15)_0%,_transparent_50%),_radial-gradient(circle_at_bottom_left,_rgba(212,175,55,0.05)_0%,_transparent_40%)] -z-10" />
+            <div className="fixed top-0 left-0 w-full h-full opacity-20 pointer-events-none -z-10" style={{ backgroundImage: 'radial-gradient(#ffffff05 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
-            <div className="w-full max-w-md">
-                {/* Brand */}
-                <div className="flex flex-col items-center mb-12">
-                    <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-black shadow-2xl shadow-blue-600/20 mb-6" onClick={() => router.push('/')}>
+            <div className="w-full max-w-md animate-in-bespoke">
+                {/* Brand Identity */}
+                <div className="flex flex-col items-center mb-16">
+                    <button
+                        onClick={() => router.push('/')}
+                        className="w-20 h-20 bg-[#0f172a] gold-border rounded-[2rem] flex items-center justify-center text-[#d4af37] text-4xl font-black shadow-2xl hover:scale-110 transition-all duration-700 mb-8 relative group"
+                    >
+                        <div className="absolute inset-0 bg-[#d4af37]/5 blur-[20px] rounded-[2rem] opacity-0 group-hover:opacity-100 transition-all" />
                         GM
-                    </div>
-                    <h1 className="text-4xl font-black tracking-tighter text-zinc-900">Welcome Back</h1>
-                    <p className="text-zinc-500 font-medium">Your premium tech gateway awaits.</p>
+                    </button>
+                    <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none mb-4">Secure Gateway</h1>
+                    <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">Private Infrastructure Access</p>
                 </div>
 
-                {/* Auth Card */}
-                <div className="bg-white p-10 rounded-[2.5rem] border border-zinc-100 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.06)]">
+                {/* Glassmorphism Auth Container */}
+                <div className="glass-card p-12 rounded-[3.5rem] border border-white/5 relative group overflow-hidden">
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-[#3b82f6]/5 blur-[60px] opacity-20 -z-10" />
+
                     {error && (
-                        <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 text-sm font-bold rounded-2xl flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                        <div className="mb-8 p-5 bg-[#d4af37]/5 border border-[#d4af37]/20 text-[#d4af37] text-[10px] font-black uppercase tracking-widest rounded-2xl flex items-center gap-3 animate-pulse">
+                            <span className="w-2 h-2 bg-[#d4af37] rounded-full" />
                             {error}
                         </div>
                     )}
 
                     {step === 1 ? (
-                        <form onSubmit={handleSendOtp} className="space-y-6">
-                            <div>
-                                <label className="block text-xs font-black text-zinc-400 uppercase tracking-widest mb-2 ml-1">Email Address</label>
-                                <input
-                                    type="email"
-                                    required
-                                    placeholder="name@example.com"
-                                    className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl px-5 py-4 text-zinc-900 font-semibold focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+                        <form onSubmit={handleSendOtp} className="space-y-8">
+                            <div className="space-y-4">
+                                <label className="block text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] ml-2">Identity Credentials</label>
+                                <div className="relative group/field">
+                                    <input
+                                        type="email"
+                                        required
+                                        placeholder="user@elite.network"
+                                        className="w-full bg-[#020617]/50 border border-white/10 rounded-2xl px-6 py-5 text-white font-bold placeholder:text-zinc-700 focus:outline-none focus:border-[#d4af37]/40 transition-all shadow-2xl"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
                             </div>
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-zinc-950 text-white py-5 rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-xl shadow-zinc-950/20 flex justify-center items-center min-h-[60px]"
+                                className="premium-btn w-full py-6 rounded-2xl text-[10px] uppercase tracking-[0.4em] flex justify-center items-center gap-4 group"
                             >
-                                {loading ? <div className="animate-spin w-5 h-5 border-3 border-white/20 border-t-white rounded-full" /> : 'Send Magic Link'}
+                                {loading ? (
+                                    <div className="animate-spin w-5 h-5 border-2 border-[#d4af37]/20 border-t-[#d4af37] rounded-full" />
+                                ) : (
+                                    <>
+                                        Authorize Access
+                                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
+                                    </>
+                                )}
                             </button>
                         </form>
                     ) : (
-                        <form onSubmit={handleVerifyOtp} className="space-y-6">
-                            <div>
-                                <div className="flex justify-between items-end mb-2 ml-1">
-                                    <label className="block text-xs font-black text-zinc-400 uppercase tracking-widest">Verification Code</label>
-                                    <span className="text-[10px] font-bold text-blue-600">Sent to {email.split('@')[0]}...</span>
+                        <form onSubmit={handleVerifyOtp} className="space-y-8">
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-end ml-2">
+                                    <label className="block text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Neural Passcode</label>
+                                    <span className="text-[9px] font-black text-[#d4af37] uppercase tracking-widest">Sent to Encrypted Hub</span>
                                 </div>
                                 <input
                                     type="text"
                                     required
                                     maxLength={6}
-                                    placeholder="Enter 6-digit OTP"
-                                    className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl px-5 py-4 text-center text-3xl font-black tracking-[0.5em] text-zinc-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all placeholder:text-zinc-200"
+                                    placeholder="••••••"
+                                    className="w-full bg-[#020617]/50 border border-white/10 rounded-2xl px-6 py-5 text-center text-4xl font-black tracking-[0.4em] text-white focus:outline-none focus:border-[#d4af37]/40 transition-all placeholder:text-white/5 shadow-2xl"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                                 />
@@ -138,37 +155,46 @@ export default function LoginPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-blue-600 text-white py-5 rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 flex justify-center items-center min-h-[60px]"
+                                className="premium-btn w-full py-6 rounded-2xl text-[10px] uppercase tracking-[0.4em] flex justify-center items-center gap-4 group"
                             >
-                                {loading ? <div className="animate-spin w-5 h-5 border-3 border-white/20 border-t-white rounded-full" /> : 'Verify & Access'}
+                                {loading ? (
+                                    <div className="animate-spin w-5 h-5 border-2 border-[#d4af37]/20 border-t-[#d4af37] rounded-full" />
+                                ) : (
+                                    <>
+                                        Authenticate Matrix
+                                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
+                                    </>
+                                )}
                             </button>
 
-                            <div className="text-center">
+                            <div className="flex flex-col gap-6 pt-4">
                                 <button
                                     type="button"
                                     disabled={timer > 0 || loading}
-                                    className={`text-xs font-black uppercase tracking-widest transition-all ${timer > 0 ? 'text-zinc-300' : 'text-zinc-500 hover:text-blue-600'}`}
+                                    className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all py-2 border-b border-white/5 self-center ${timer > 0 ? 'text-zinc-800' : 'text-[#d4af37]/60 hover:text-[#d4af37]'}`}
                                     onClick={handleSendOtp}
                                 >
-                                    {timer > 0 ? `Resend in ${timer}s` : 'Resend Code'}
+                                    {timer > 0 ? `Retry in ${timer} Standard Seconds` : 'Regenerate Authorization Pack'}
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="text-[9px] font-black text-zinc-600 hover:text-white uppercase tracking-[0.2em] transition-all"
+                                    onClick={() => setStep(1)}
+                                >
+                                    ← Modify Identity Credentials
                                 </button>
                             </div>
-
-                            <button
-                                type="button"
-                                className="w-full text-xs font-bold text-zinc-400 hover:text-zinc-600 transition-all"
-                                onClick={() => setStep(1)}
-                            >
-                                ← Use a different email
-                            </button>
                         </form>
                     )}
                 </div>
 
-                <p className="mt-8 text-center text-zinc-400 text-xs font-medium">
-                    By signing in, you agree to GadgetMart’s <br />
-                    <span className="text-zinc-900 font-bold border-b border-zinc-200">Terms of Service</span> and <span className="text-zinc-900 font-bold border-b border-zinc-200">Privacy Policy</span>
-                </p>
+                <div className="mt-12 text-center space-y-4">
+                    <p className="text-zinc-800 text-[10px] font-black uppercase tracking-[0.3em] leading-relaxed">
+                        By providing credentials, you acknowledge the <br />
+                        <span className="text-zinc-500 border-b border-zinc-800">Elite Protocols</span> and <span className="text-zinc-500 border-b border-zinc-800">Privacy Encryption</span>
+                    </p>
+                </div>
             </div>
         </div>
     );
