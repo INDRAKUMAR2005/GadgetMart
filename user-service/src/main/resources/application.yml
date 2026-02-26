@@ -5,7 +5,7 @@ spring:
   application:
     name: user-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/gadgetmart_user?options=-c%20timezone=UTC
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/gadgetmart_user}
     username: ${SPRING_DATASOURCE_USERNAME:gadmun}
     password: ${SPRING_DATASOURCE_PASSWORD:gm_password_2026}
     driver-class-name: org.postgresql.Driver
@@ -17,7 +17,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
-      host: localhost
+      host: redis.railway.internal
       port: 6379
 
 eureka:
@@ -25,7 +25,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://discovery-service.railway.internal:8761/eureka/
 
 app:
   jwt:
