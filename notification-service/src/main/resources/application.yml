@@ -7,7 +7,7 @@ spring:
 
   # Kafka Consumer Configuration
   kafka:
-    bootstrap-servers: kafka.railway.internal:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka.railway.internal:9092}
     consumer:
       group-id: notification-service-group
       auto-offset-reset: earliest
@@ -35,7 +35,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://discovery-service.railway.internal:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://discovery-service.railway.internal:8761/eureka/}
 
 # App Config
 app:
