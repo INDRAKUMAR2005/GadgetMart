@@ -192,7 +192,7 @@ export default function Home() {
                 onClick={() => router.push('/login')}
                 className="premium-btn px-10 py-4 rounded-2xl text-[10px] font-black animate-in-bespoke"
               >
-                Launch Console
+                Login
               </button>
             )}
           </div>
