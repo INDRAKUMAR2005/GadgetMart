@@ -42,7 +42,7 @@ export default function LoginPage() {
                 setError(data.message || 'Failed to send verification code');
             }
         } catch (err) {
-            setError('Neural link error. Please try again.');
+            setError('Failed to send OTP. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -65,10 +65,10 @@ export default function LoginPage() {
                     router.push('/');
                 }
             } else {
-                setError(data.message || 'Verification failure. Invalid payload.');
+                setError(data.message || 'Invalid OTP. Please try again.');
             }
         } catch (err) {
-            setError('Verification matrix failed. Try again.');
+            setError('Verification failed. Try again.');
         } finally {
             setLoading(false);
         }
@@ -90,8 +90,8 @@ export default function LoginPage() {
                         <div className="absolute inset-0 bg-[#d4af37]/5 blur-[20px] rounded-[2rem] opacity-0 group-hover:opacity-100 transition-all" />
                         GM
                     </button>
-                    <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none mb-4">Secure Gateway</h1>
-                    <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">Private Infrastructure Access</p>
+                    <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none mb-4">Login</h1>
+                    <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">Welcome back</p>
                 </div>
 
                 {/* Glassmorphism Auth Container */}
@@ -108,12 +108,12 @@ export default function LoginPage() {
                     {step === 1 ? (
                         <form onSubmit={handleSendOtp} className="space-y-8">
                             <div className="space-y-4">
-                                <label className="block text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] ml-2">Identity Credentials</label>
+                                <label className="block text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] ml-2">Email Address</label>
                                 <div className="relative group/field">
                                     <input
                                         type="email"
                                         required
-                                        placeholder="user@elite.network"
+                                        placeholder="user@example.com"
                                         className="w-full bg-[#020617]/50 border border-white/10 rounded-2xl px-6 py-5 text-white font-bold placeholder:text-zinc-700 focus:outline-none focus:border-[#d4af37]/40 transition-all shadow-2xl"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -129,7 +129,7 @@ export default function LoginPage() {
                                     <div className="animate-spin w-5 h-5 border-2 border-[#d4af37]/20 border-t-[#d4af37] rounded-full" />
                                 ) : (
                                     <>
-                                        Authorize Access
+                                        Send OTP
                                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
                                     </>
                                 )}
@@ -139,8 +139,8 @@ export default function LoginPage() {
                         <form onSubmit={handleVerifyOtp} className="space-y-8">
                             <div className="space-y-4">
                                 <div className="flex justify-between items-end ml-2">
-                                    <label className="block text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">Neural Passcode</label>
-                                    <span className="text-[9px] font-black text-[#d4af37] uppercase tracking-widest">Sent to Encrypted Hub</span>
+                                    <label className="block text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">OTP Code</label>
+                                    <span className="text-[9px] font-black text-[#d4af37] uppercase tracking-widest">Sent to your email</span>
                                 </div>
                                 <input
                                     type="text"
@@ -161,7 +161,7 @@ export default function LoginPage() {
                                     <div className="animate-spin w-5 h-5 border-2 border-[#d4af37]/20 border-t-[#d4af37] rounded-full" />
                                 ) : (
                                     <>
-                                        Authenticate Matrix
+                                        Verify OTP
                                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
                                     </>
                                 )}
@@ -174,7 +174,7 @@ export default function LoginPage() {
                                     className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all py-2 border-b border-white/5 self-center ${timer > 0 ? 'text-zinc-800' : 'text-[#d4af37]/60 hover:text-[#d4af37]'}`}
                                     onClick={handleSendOtp}
                                 >
-                                    {timer > 0 ? `Retry in ${timer} Standard Seconds` : 'Regenerate Authorization Pack'}
+                                    {timer > 0 ? `Retry in ${timer}s` : 'Resend OTP'}
                                 </button>
 
                                 <button
@@ -182,7 +182,7 @@ export default function LoginPage() {
                                     className="text-[9px] font-black text-zinc-600 hover:text-white uppercase tracking-[0.2em] transition-all"
                                     onClick={() => setStep(1)}
                                 >
-                                    ← Modify Identity Credentials
+                                    ← Change Email
                                 </button>
                             </div>
                         </form>
@@ -191,8 +191,8 @@ export default function LoginPage() {
 
                 <div className="mt-12 text-center space-y-4">
                     <p className="text-zinc-800 text-[10px] font-black uppercase tracking-[0.3em] leading-relaxed">
-                        By providing credentials, you acknowledge the <br />
-                        <span className="text-zinc-500 border-b border-zinc-800">Elite Protocols</span> and <span className="text-zinc-500 border-b border-zinc-800">Privacy Encryption</span>
+                        By logging in, you agree to our <br />
+                        <span className="text-zinc-500 border-b border-zinc-800">Terms of Service</span> and <span className="text-zinc-500 border-b border-zinc-800">Privacy Policy</span>
                     </p>
                 </div>
             </div>
