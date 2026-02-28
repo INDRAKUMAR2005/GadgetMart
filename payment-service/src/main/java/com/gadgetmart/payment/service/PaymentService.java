@@ -54,37 +54,51 @@ public class PaymentService {
                 // Razorpay amount is in paise (1 INR = 100 paise)
                 int amountInPaise = amount.multiply(BigDecimal.valueOf(100)).intValue();
 
-                JSONObject orderRequest = new JSONObject();
-                orderRequest.put("amount", amountInPaise);
-                orderRequest.put("currency", "INR");
-                orderRequest.put("receipt", gadgetmartOrderNumber);
-                orderRequest.put("notes", new JSONObject()
-                                .put("userEmail", userEmail)
-                                .put("orderNumber", gadgetmartOrderNumber));
+                if (razorpayClient == null) {
+                        log.error("❌ RazorpayClient is not initialized. Check your RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET.");
+                        throw new IllegalStateException("Payment provider not configured");
+                }
 
-                Order razorpayOrder = razorpayClient.orders.create(orderRequest);
-                String razorpayOrderId = razorpayOrder.get("id");
+                log.info("💳 Initiating Razorpay order for GadgetMart Order: {}, Amount: {} INR", gadgetmartOrderNumber,
+                                amount);
 
-                log.info("💳 Razorpay order created: {} for order: {}", razorpayOrderId, gadgetmartOrderNumber);
+                try {
+                        JSONObject orderRequest = new JSONObject();
+                        orderRequest.put("amount", amountInPaise);
+                        orderRequest.put("currency", "INR");
+                        orderRequest.put("receipt", gadgetmartOrderNumber);
+                        orderRequest.put("notes", new JSONObject()
+                                        .put("userEmail", userEmail)
+                                        .put("orderNumber", gadgetmartOrderNumber));
 
-                // Persist payment record
-                Payment payment = Payment.builder()
-                                .orderNumber(gadgetmartOrderNumber)
-                                .userEmail(userEmail)
-                                .razorpayOrderId(razorpayOrderId)
-                                .amount(amount)
-                                .currency("INR")
-                                .status("CREATED")
-                                .createdAt(LocalDateTime.now())
-                                .build();
-                paymentRepository.save(payment);
+                        Order razorpayOrder = razorpayClient.orders.create(orderRequest);
+                        String razorpayOrderId = razorpayOrder.get("id");
 
-                return Map.<String, Object>of(
-                                "razorpayOrderId", razorpayOrderId,
-                                "gadgetmartOrderNumber", gadgetmartOrderNumber,
-                                "amount", amountInPaise,
-                                "currency", "INR",
-                                "status", "CREATED");
+                        log.info("✅ Razorpay order created successfully: {}", razorpayOrderId);
+
+                        // Persist payment record
+                        Payment payment = Payment.builder()
+                                        .orderNumber(gadgetmartOrderNumber)
+                                        .userEmail(userEmail)
+                                        .razorpayOrderId(razorpayOrderId)
+                                        .amount(amount)
+                                        .currency("INR")
+                                        .status("CREATED")
+                                        .createdAt(LocalDateTime.now())
+                                        .build();
+                        paymentRepository.save(payment);
+
+                        return Map.<String, Object>of(
+                                        "razorpayOrderId", razorpayOrderId,
+                                        "gadgetmartOrderNumber", gadgetmartOrderNumber,
+                                        "amount", amountInPaise,
+                                        "currency", "INR",
+                                        "status", "CREATED");
+                } catch (Exception e) {
+                        log.error("❌ Failed to create Razorpay order for {}: {}", gadgetmartOrderNumber,
+                                        e.getMessage());
+                        throw e;
+                }
         }
 
         /**

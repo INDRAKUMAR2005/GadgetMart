@@ -1,5 +1,9 @@
 # 🛒 GadgetMart: Premium Tech Hub
 
+**Live Links:**
+- **Storefront (Frontend):** [http://52.140.120.94:3000](http://52.140.120.94:3000)
+- **API (Backend Gateway):** [http://52.140.120.94:80](http://52.140.120.94:80)
+
 GadgetMart is a modern, microservices-based e-commerce platform designed to aggregate tech deals from multiple sources (Amazon, Flipkart, etc.). It features a revamped, high-performance frontend and a robust backend architecture.
 
 ## 🏗️ Architecture Overview

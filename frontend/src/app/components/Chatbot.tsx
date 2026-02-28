@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-
 export default function Chatbot() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
-        { role: 'assistant', content: "Hi! I'm here to help you find the best tech at the best prices. Ask me anything! 🚀" }
+        { role: 'assistant', content: "Hi! I'm GadgetMart's AI assistant. Ask me anything about our tech products! 🚀" }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -28,47 +26,30 @@ export default function Chatbot() {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: `You are a friendly shopping helper for GadgetMart. We sell things like iPhones, MacBooks, and other cool tech. 
-            Help users find what they need, explain things simply, and be very kind. Do not use technical words that are hard to understand.
-            User says: ${userMessage}`
-                        }]
-                    }]
-                })
+            // ✅ Calls our own Next.js server-side route — Gemini key stays secure on the server
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMessage }),
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("Gemini API Error:", errorData);
-                throw new Error(errorData.error?.message || "Failed to connect to AI");
-            }
 
             const data = await response.json();
 
-            // Check for candidates or safety blocks
-            let aiResponse = "";
-            if (data.candidates && data.candidates.length > 0) {
-                const candidate = data.candidates[0];
-                if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
-                    aiResponse = candidate.content.parts[0].text;
-                } else if (candidate.finishReason === "SAFETY") {
-                    aiResponse = "I'm sorry, but I can't discuss that topic as it violates safety guidelines.";
-                }
+            if (!response.ok) {
+                // Show the real error from our server so we can debug
+                const errMsg = data?.error || "Something went wrong. Please try again.";
+                setMessages(prev => [...prev, { role: 'assistant', content: `⚠️ ${errMsg}` }]);
+                return;
             }
 
-            if (!aiResponse) {
-                aiResponse = "I'm having trouble processing that right now. Could you please rephrase or ask something else?";
-            }
-
+            const aiResponse = data?.reply || "I'm having a little trouble. Could you rephrase that?";
             setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
         } catch (error: any) {
             console.error("Chatbot Error:", error);
-            setMessages(prev => [...prev, { role: 'assistant', content: "I'm sorry, I'm having trouble connecting to my brain right now. Please try again later!" }]);
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: "⚠️ Unable to connect. Please check your internet connection and try again."
+            }]);
         } finally {
             setIsLoading(false);
         }
@@ -106,7 +87,7 @@ export default function Chatbot() {
                             <h3 className="font-black text-2xl tracking-tighter text-slate-900 uppercase italic">Help Center</h3>
                             <div className="flex items-center gap-2.5 mt-2">
                                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">How can I help?</p>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">AI-Powered · Always Online</p>
                             </div>
                         </div>
                         <div className="w-14 h-14 rounded-2xl bg-white border-2 border-indigo-600 flex items-center justify-center text-2xl shadow-sm text-indigo-600">GM</div>
@@ -136,7 +117,7 @@ export default function Chatbot() {
                         )}
                     </div>
 
-                    {/* Input Bar: Sleek Interface */}
+                    {/* Input Bar */}
                     <div className="p-8 bg-slate-50 border-t border-slate-100 flex gap-4 items-center">
                         <div className="flex-1 relative group">
                             <input
@@ -144,13 +125,14 @@ export default function Chatbot() {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                                placeholder="Write something..."
+                                placeholder="Ask about any product..."
                                 className="w-full bg-white border border-slate-200 rounded-2xl px-6 py-5 text-sm text-slate-900 focus:outline-none focus:border-indigo-400 transition-all placeholder:text-slate-300 font-medium shadow-sm"
                             />
                         </div>
                         <button
                             onClick={handleSend}
-                            className="w-16 h-16 premium-btn rounded-2xl flex items-center justify-center active:scale-95 shadow-xl group/btn"
+                            disabled={isLoading || !input.trim()}
+                            className="w-16 h-16 premium-btn rounded-2xl flex items-center justify-center active:scale-95 shadow-xl group/btn disabled:opacity-40"
                         >
                             <svg className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
                         </button>

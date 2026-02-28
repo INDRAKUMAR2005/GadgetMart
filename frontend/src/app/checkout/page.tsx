@@ -55,20 +55,20 @@ function CheckoutContent() {
 
                 <div className="space-y-10">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Asset Identification</span>
+                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Selection</span>
                         <span className="text-2xl font-black text-white tracking-tight uppercase">{productName}</span>
                     </div>
 
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-t border-white/5 pt-10">
-                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Infrastructure Node</span>
+                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Processing Hub</span>
                         <div className="flex items-center gap-3">
                             <div className="w-2 h-2 rounded-full bg-[#d4af37]" />
-                            <span className="text-zinc-300 font-bold uppercase tracking-widest text-xs">GadgetMart Private Relay</span>
+                            <span className="text-zinc-300 font-bold uppercase tracking-widest text-xs">GadgetMart Premium Node</span>
                         </div>
                     </div>
 
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-t border-white/5 pt-10">
-                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Total Valuation</span>
+                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Order Total</span>
                         <div className="flex items-baseline gap-3">
                             <span className="text-2xl font-black text-[#d4af37]">₹</span>
                             <span className="text-7xl font-black text-white italic tracking-tighter">{amount.toLocaleString("en-IN")}</span>
@@ -78,14 +78,14 @@ function CheckoutContent() {
             </div>
 
             {paymentStatus === "error" && (
-                <div className="mb-12 p-6 bg-[#d4af37]/5 border border-[#d4af37]/20 text-[#d4af37] text-[10px] font-black uppercase tracking-widest rounded-[2rem] flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
+                <div className="mb-12 p-6 bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-widest rounded-[2rem] flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
                     <span className="text-2xl">⚡</span>
                     <p>{errorMsg}</p>
                 </div>
             )}
 
             <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#d4af37]/50 to-[#d4af37]/20 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition-all duration-1000" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#d4af37]/50 to-indigo-500/50 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition-all duration-1000" />
                 <RazorpayButton
                     amount={amount}
                     productName={productName}
@@ -97,11 +97,11 @@ function CheckoutContent() {
 
             <div className="mt-16 flex flex-col items-center gap-6">
                 <div className="pt-8 border-t border-white/5 w-full flex flex-col md:flex-row items-center justify-between gap-6 opacity-30">
-                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">🔒 Encrypted Transfer Hub</p>
-                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Powered by Razorpay Advanced Matrix</p>
+                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">🔒 Secure Encryption Active</p>
+                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Verified by Razorpay Advanced Intel</p>
                 </div>
                 <p className="text-[9px] font-black text-zinc-700 uppercase tracking-[0.3em] text-center max-w-md leading-relaxed">
-                    By confirming this transmission, you authorize the secure allocation of digital assets via the private GadgetMart relay network.
+                    By finalizing this transaction, you agree to GadgetMart's premium service terms and secure asset transfer protocols.
                 </p>
             </div>
         </div>

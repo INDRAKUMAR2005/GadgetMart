@@ -195,6 +195,29 @@ services:
     networks:
       - gadgetmart-net
 
+  # ──────────────────────────────────────────────────
+  # FRONTEND (Next.js)
+  # ──────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gad-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      # Server-side Gemini key (not exposed to browser) — used by /api/chat route
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      # Public Razorpay key (safe to expose — only key ID, not secret)
+      - NEXT_PUBLIC_RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
+      # Point frontend to the API Gateway (internal Docker network)
+      - NEXT_PUBLIC_API_BASE_URL=http://api-gateway:8080
+    depends_on:
+      - api-gateway
+    networks:
+      - gadgetmart-net
+
 networks:
   gadgetmart-net:
     driver: bridge
