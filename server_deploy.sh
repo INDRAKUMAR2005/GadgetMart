@@ -37,11 +37,11 @@ echo "✅ Environment file written."
 # ── 3. Stop old containers ────────────────────────────────────────────────────
 echo "🛑 Stopping old containers..."
 cd ~/GadgetMart
-docker compose -f docker-compose.prod.yml --env-file .env.prod down 2>/dev/null || true
+docker-compose -f docker-compose.prod.yml --env-file .env.prod down 2>/dev/null || true
 
 # ── 4. Start fresh ────────────────────────────────────────────────────────────
 echo "🏗️  Rebuilding and starting all services..."
-docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 
 echo ""
 echo "✅ All services started!"
@@ -53,4 +53,4 @@ echo "📡 Eureka Dashboard: http://${SERVER_IP}:8761"
 echo ""
 echo "⏳ Services take ~60 seconds to fully start. Tailing logs..."
 sleep 10
-docker compose -f docker-compose.prod.yml logs --tail=20 payment-service frontend
+docker-compose -f docker-compose.prod.yml logs --tail=20 payment-service frontend
