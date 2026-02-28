@@ -267,10 +267,18 @@ export default function Home() {
         {/* Retail Partners */}
         <div className="mt-16 sm:mt-24 flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-16 gap-y-4 sm:gap-y-8 opacity-60 hover:opacity-100 transition-all duration-1000 px-2">
           <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-300 w-full text-center mb-4 sm:mb-8">Our Retail Partners</span>
-          {['FLIPKART', 'AMAZON', 'MEESHO', 'RELIANCE DIGITAL', 'CROMA', 'APPLE', 'SAMSUNG'].map((node, i) => (
+          {[
+            { name: 'FLIPKART', dot: 'bg-blue-400', text: 'text-blue-500' },
+            { name: 'AMAZON', dot: 'bg-orange-400', text: 'text-orange-500' },
+            { name: 'MEESHO', dot: 'bg-pink-400', text: 'text-pink-500' },
+            { name: 'RELIANCE DIGITAL', dot: 'bg-purple-400', text: 'text-purple-500' },
+            { name: 'CROMA', dot: 'bg-green-400', text: 'text-green-500' },
+            { name: 'APPLE', dot: 'bg-slate-400', text: 'text-slate-500' },
+            { name: 'SAMSUNG', dot: 'bg-cyan-400', text: 'text-cyan-500' },
+          ].map((brand, i) => (
             <div key={i} className="flex items-center gap-2 sm:gap-4 group/node">
-              <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-amber-400 transition-all" />
-              <span className="text-[10px] sm:text-xs font-black text-slate-400 group-hover:text-amber-500 tracking-[0.2em] transition-all cursor-default uppercase">{node}</span>
+              <div className={`w-1.5 h-1.5 rounded-full ${brand.dot} opacity-60 group-hover/node:opacity-100 transition-all`} />
+              <span className={`text-[10px] sm:text-xs font-black tracking-[0.2em] transition-all cursor-default uppercase text-slate-400 group-hover/node:${brand.text}`}>{brand.name}</span>
             </div>
           ))}
         </div>
@@ -294,12 +302,15 @@ export default function Home() {
                 <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-orange-500 mb-1">Important Notice</h4>
                 <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tighter uppercase italic">Phase 1: testing only</h3>
               </div>
-              <p className="text-slate-500 text-sm sm:text-lg font-black uppercase tracking-wide leading-relaxed">
-                We are currently testing <span className="text-amber-500">live price data</span> from top sites.<br />
-                <span className="text-orange-600 text-xs sm:text-base">Direct buying is disabled until our official launch.</span>
+              <p className="text-slate-500 text-sm sm:text-base font-bold tracking-wide leading-relaxed">
+                Prices are fetched using <span className="text-amber-500 font-black">Apify web scrapers</span>. Due to API
+                usage costs, live scraping runs on a limited schedule — so displayed prices are
+                <span className="text-orange-500 font-black"> approximate and may not reflect real-time data</span>.
+                <br /><br />
+                <span className="text-orange-600 text-xs sm:text-sm font-black uppercase tracking-widest">Direct purchasing is disabled until our official launch.</span>
               </p>
               <div className="flex flex-wrap gap-4 sm:gap-8">
-                {[{ label: 'SITE STATUS', value: 'LIVE TESTING' }, { label: 'DATA SYNC', value: 'ACTIVE' }].map((stat, i) => (
+                {[{ label: 'PRICE SOURCE', value: 'APIFY SCRAPER' }, { label: 'ACCURACY', value: 'APPROXIMATE' }].map((stat, i) => (
                   <div key={i} className="flex items-center gap-3 bg-orange-50 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-orange-100">
                     <span className="text-orange-600 uppercase tracking-[0.3em] text-[9px] font-black">{stat.label}</span>
                     <span className="text-slate-900 font-black text-[10px] uppercase tracking-widest">{stat.value}</span>
