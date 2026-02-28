@@ -2,7 +2,9 @@
 
 **Live Links:**
 - **Storefront (Frontend):** [http://52.140.120.94:3000](http://52.140.120.94:3000)
-- **API (Backend Gateway):** [http://52.140.120.94:80](http://52.140.120.94:80)
+- **API Gateway (Backend Root):** [http://52.140.120.94:80](http://52.140.120.94:80)
+- **Service Discovery (Eureka Dashboard):** [http://52.140.120.94:8761](http://52.140.120.94:8761)
+- **Product API (Example):** [http://52.140.120.94:80/api/products/iphone](http://52.140.120.94:80/api/products/iphone)
 
 GadgetMart is a modern, microservices-based e-commerce platform designed to aggregate tech deals from multiple sources (Amazon, Flipkart, etc.). It features a revamped, high-performance frontend and a robust backend architecture.
 

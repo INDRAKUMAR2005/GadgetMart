@@ -52,7 +52,6 @@ public class PaymentService {
                         BigDecimal amount) throws Exception {
 
                 // ── Guard: fail fast with a clear message if keys are missing ──────────
-                String keyId = razorpayClient != null ? "present" : "missing";
                 if (razorpaySecret == null || razorpaySecret.equals("NOT_SET") || razorpaySecret.isBlank()) {
                         log.error("❌ RAZORPAY_KEY_SECRET is not set. Set it as an environment variable on the server.");
                         throw new IllegalStateException(
