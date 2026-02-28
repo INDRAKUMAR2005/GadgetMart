@@ -4,10 +4,13 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 RAZORPAY_SECRET="${1}"
+GEMINI_KEY="${2:-AIzaSyBO282Hyg4pysV3Kq887Y69q8-mksWc}"
 
 if [ -z "$RAZORPAY_SECRET" ]; then
-    echo "❌ Usage: bash server_deploy.sh YOUR_RAZORPAY_SECRET_KEY"
-    echo "   Get it from: https://dashboard.razorpay.com/app/keys"
+    echo "❌ Usage: bash server_deploy.sh YOUR_RAZORPAY_SECRET_KEY [YOUR_GEMINI_API_KEY]"
+    echo "   Get secrets from: "
+    echo "   1. Razorpay: https://dashboard.razorpay.com/app/keys"
+    echo "   2. Gemini:   https://aistudio.google.com/app/apikey"
     exit 1
 fi
 
@@ -24,7 +27,7 @@ cat > ~/GadgetMart/.env.prod << EOF
 DB_PASSWORD=gm_password_2026
 RAZORPAY_KEY_ID=rzp_live_SLViSJp7TtyeW0
 RAZORPAY_KEY_SECRET=${RAZORPAY_SECRET}
-GEMINI_API_KEY=AIzaSyBO282Hyg4pysV3Kq887Y69q8-mksWc
+GEMINI_API_KEY=${GEMINI_KEY}
 APIFY_TOKEN=
 UNSPLASH_ACCESS_KEY=
 UNSPLASH_SECRET_KEY=

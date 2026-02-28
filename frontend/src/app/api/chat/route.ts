@@ -47,6 +47,14 @@ User: ${message}`
             const errBody = await geminiRes.json().catch(() => ({}));
             const msg = errBody?.error?.message || `Gemini API error (${geminiRes.status})`;
             console.error("[Chat API] Gemini error:", msg);
+
+            // Special case for invalid key
+            if (geminiRes.status === 400 && msg.includes("key not valid")) {
+                return NextResponse.json({
+                    error: "The GEMINI_API_KEY provided is invalid. Please double-check your key at https://aistudio.google.com/app/apikey"
+                }, { status: 502 });
+            }
+
             return NextResponse.json({ error: msg }, { status: 502 });
         }
 
