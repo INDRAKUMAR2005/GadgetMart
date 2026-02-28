@@ -51,6 +51,15 @@ public class PaymentService {
                         String userEmail,
                         BigDecimal amount) throws Exception {
 
+                // ── Guard: fail fast with a clear message if keys are missing ──────────
+                String keyId = razorpayClient != null ? "present" : "missing";
+                if (razorpaySecret == null || razorpaySecret.equals("NOT_SET") || razorpaySecret.isBlank()) {
+                        log.error("❌ RAZORPAY_KEY_SECRET is not set. Set it as an environment variable on the server.");
+                        throw new IllegalStateException(
+                                        "Razorpay is not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET environment variables. "
+                                                        + "Get your keys from https://dashboard.razorpay.com/app/keys");
+                }
+
                 // Razorpay amount is in paise (1 INR = 100 paise)
                 int amountInPaise = amount.multiply(BigDecimal.valueOf(100)).intValue();
 

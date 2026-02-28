@@ -42,13 +42,14 @@ function getPlatformIcon(name: string) {
 function getPlatformColor(name: string) {
     const lower = name.toLowerCase();
     if (lower.includes("gadgetmart")) return "gold-border";
-    return "border-white/5";
+    return "border-slate-100";
 }
 
 export default function PriceCard({ item, productName, userEmail, productImage, handleSave }: PriceCardProps) {
     const [added, setAdded] = useState(false);
     const isOwnPlatform = item.platformName.toLowerCase().includes("gadgetmart");
     const icon = getPlatformIcon(item.platformName);
+
     const handleAddToCart = () => {
         addToCart({
             id: productName + item.platformName,
@@ -78,66 +79,71 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
 
     return (
         <div
-            className={`relative rounded-[3.5rem] bg-white border ${borderClass === 'gold-border' ? 'border-indigo-600' : 'border-slate-100'} p-10 flex flex-col md:flex-row items-center justify-between gap-8 transition-all duration-700 hover:shadow-xl group overflow-hidden animate-in-bespoke`}
+            className={`relative rounded-[2.5rem] sm:rounded-[3.5rem] bg-white border ${isOwnPlatform ? 'border-amber-400' : 'border-slate-100'} p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8 transition-all duration-700 hover:shadow-xl group overflow-hidden animate-in-bespoke`}
         >
-            {/* Background Glow */}
+            {/* Background Glow — amber for GadgetMart */}
             {isOwnPlatform && (
-                <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-50 blur-[100px] -z-10 group-hover:bg-indigo-100 transition-all duration-1000 opacity-50" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-50 blur-[80px] -z-10 group-hover:bg-amber-100 transition-all duration-1000 opacity-60" />
             )}
 
             {/* Left: Platform Info */}
-            <div className="flex items-center gap-8 w-full md:w-auto">
-                <div className="w-24 h-24 flex items-center justify-center rounded-[2.5rem] bg-slate-50 border border-slate-100 p-5 group-hover:scale-110 transition-transform duration-500 shadow-sm relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/20 to-transparent opacity-50" />
+            <div className="flex items-center gap-5 sm:gap-8 w-full sm:w-auto">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 flex items-center justify-center rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 border border-slate-100 p-3 sm:p-4 group-hover:scale-110 transition-transform duration-500 shadow-sm">
                     {getPlatformLogo(item.platformName) ? (
-                        <img src={getPlatformLogo(item.platformName)} alt={item.platformName} className={`max-w-full max-h-full object-contain relative z-10 opacity-90 group-hover:opacity-100 transition-all duration-500`} />
+                        <img src={getPlatformLogo(item.platformName)} alt={item.platformName} className="max-w-full max-h-full object-contain opacity-90 group-hover:opacity-100 transition-all" />
                     ) : (
-                        <span className="text-4xl relative z-10">{icon}</span>
+                        <span className="text-3xl">{icon}</span>
                     )}
                 </div>
                 <div>
-                    <h3 className="text-2xl font-black text-slate-900 leading-tight mb-2 tracking-tighter uppercase">{item.platformName}</h3>
-                    <div className="flex flex-wrap items-center gap-4">
-                        <div className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                    <h3 className="text-lg sm:text-2xl font-black text-slate-900 leading-tight mb-1.5 tracking-tighter uppercase">{item.platformName}</h3>
+                    <div className="flex flex-wrap items-center gap-3">
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
                                 Verified {new Date(item.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </p>
                         </div>
                         {item.promoCode && (
-                            <span className="text-[10px] text-indigo-600 font-black bg-indigo-50 px-4 py-1.5 rounded-full uppercase tracking-[0.2em] border border-indigo-100">
+                            <span className="text-[10px] text-amber-600 font-black bg-amber-50 px-3 py-1 rounded-full uppercase tracking-[0.2em] border border-amber-200">
                                 {item.promoCode}
                             </span>
+                        )}
+                        {isOwnPlatform && (
+                            <span className="text-[10px] text-amber-600 font-black bg-amber-50 px-3 py-1 rounded-full uppercase tracking-[0.2em] border border-amber-200">★ Best Deal</span>
                         )}
                     </div>
                 </div>
             </div>
 
-            {/* Right: Price + Action */}
-            <div className="flex flex-col items-end gap-6 w-full md:w-auto">
-                <div className="text-right">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block mb-2">Today's Price</span>
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-bold text-indigo-600">₹</span>
-                        <p className="text-5xl font-black text-slate-900 italic tracking-tighter leading-none">
+            {/* Right: Price + Actions */}
+            <div className="flex flex-col sm:items-end gap-4 sm:gap-6 w-full sm:w-auto">
+                <div className="sm:text-right">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block mb-1">Today's Price</span>
+                    <div className="flex items-baseline gap-2 sm:justify-end">
+                        <span className="text-lg sm:text-xl font-bold text-amber-500">₹</span>
+                        <p className="text-4xl sm:text-5xl font-black text-slate-900 italic tracking-tighter leading-none">
                             {item.price.toLocaleString("en-IN")}
                         </p>
                     </div>
                 </div>
 
-                <div className="flex flex-wrap gap-4 w-full md:w-auto justify-end">
+                <div className="flex flex-wrap gap-3 w-full sm:w-auto sm:justify-end">
+                    {/* Add to Cart */}
                     <button
                         onClick={handleAddToCart}
-                        className={`px-8 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${added ? "bg-green-600 border-green-600 text-white shadow-lg" : "bg-white border-slate-100 text-slate-900 hover:bg-slate-50 hover:border-indigo-200 shadow-sm"
-                            }`}
+                        className={`px-6 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${added
+                            ? "bg-green-500 border-green-500 text-white shadow-lg scale-95"
+                            : "bg-white border-slate-100 text-slate-900 hover:bg-amber-50 hover:border-amber-200 shadow-sm"}`}
                     >
                         {added ? "✓ Added" : "Add to Cart"}
                     </button>
 
+                    {/* Checkout (GadgetMart) or Check Store (external) */}
                     {isOwnPlatform ? (
                         <Link
                             href={`/checkout?product=${encodeURIComponent(productName)}&amount=${item.price}&email=${encodeURIComponent(userEmail || "")}`}
-                            className="premium-btn px-10 py-5 rounded-2xl text-[10px] flex items-center gap-3 animate-in-bespoke"
+                            className="premium-btn px-8 py-4 rounded-2xl text-[10px] flex items-center gap-2 animate-in-bespoke"
                         >
                             Checkout
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
@@ -146,12 +152,11 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
                         <a
                             href={item.platformProductUrl && item.platformProductUrl !== "#" ? item.platformProductUrl : "#"}
                             onClick={(e) => {
-                                // ... (keeping existing logic)
                                 if (!item.platformProductUrl || item.platformProductUrl === "#") {
                                     e.preventDefault();
                                     const cleanName = productName.replace(/\(.*\)/g, '').replace(/Gen\s+\d+/gi, '').replace(/Hot Deal\s*#\d*/gi, '').trim();
-                                    let storeUrl = "";
                                     const p = item.platformName.toLowerCase();
+                                    let storeUrl = "";
                                     if (p.includes('amazon')) storeUrl = `https://www.amazon.in/s?k=${encodeURIComponent(cleanName)}`;
                                     else if (p.includes('flipkart')) storeUrl = `https://www.flipkart.com/search?q=${encodeURIComponent(cleanName)}`;
                                     else if (p.includes('reliance')) storeUrl = `https://www.reliancedigital.in/search?q=${encodeURIComponent(cleanName)}`;
@@ -165,23 +170,18 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
                             }}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-white border-2 border-indigo-600 px-10 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600 hover:bg-slate-50 transition-all flex items-center gap-3 shadow-sm"
+                            className="bg-white border-2 border-amber-400 px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] text-amber-600 hover:bg-amber-50 transition-all flex items-center gap-2 shadow-sm"
                         >
                             Check Store ↗
                         </a>
                     )}
 
+                    {/* Save button */}
                     <button
-                        onClick={() => handleSave?.({
-                            name: productName,
-                            brand: item.platformName,
-                            category: "Gadget",
-                            imageUrl: productImage,
-                            price: item.price
-                        })}
-                        className="w-16 h-16 rounded-2xl bg-white border border-slate-100 flex items-center justify-center hover:bg-indigo-50 hover:border-indigo-200 transition-all shrink-0 shadow-sm"
+                        onClick={() => handleSave?.({ name: productName, brand: item.platformName, category: "Gadget", imageUrl: productImage, price: item.price })}
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center hover:bg-amber-50 hover:border-amber-200 transition-all shrink-0 shadow-sm"
                     >
-                        <span className="text-xl">🔖</span>
+                        <span className="text-lg">🔖</span>
                     </button>
                 </div>
             </div>
