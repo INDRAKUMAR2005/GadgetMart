@@ -18,6 +18,7 @@ export default function Chatbot() {
     }, [messages]);
 
     const handleSend = async () => {
+        console.log("Chatbot: Attempting to send message...", input);
         if (!input.trim() || isLoading) return;
 
         const userMessage = input.trim();
@@ -26,7 +27,9 @@ export default function Chatbot() {
         setIsLoading(true);
 
         try {
+            console.log("Chatbot: Fetching /api/chat...");
             const response = await fetch("/api/chat", {
+                // ... (keeping rest of logic same)
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMessage }),
