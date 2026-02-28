@@ -108,7 +108,7 @@ export default function RazorpayButton({
                 },
 
                 theme: {
-                    color: "#3b82f6",
+                    color: "#4f46e5",
                 },
             };
 
@@ -131,11 +131,11 @@ export default function RazorpayButton({
         <button
             id="rzp-button1"
             onClick={handlePayment}
-            className="w-full bg-gradient-to-r from-blue-500 to-violet-500 hover:from-blue-600 hover:to-violet-600 text-white font-bold py-3 px-8 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-5 px-8 rounded-2xl transition-all duration-200 shadow-lg flex items-center justify-center gap-3 group"
         >
-            <span>🛒</span>
-            <span>Buy from GadgetMart</span>
-            <span className="ml-auto font-normal text-sm opacity-80">₹{amount.toLocaleString()}</span>
+            <span className="text-xl group-hover:scale-110 transition-transform">🛍️</span>
+            <span className="uppercase tracking-widest text-[10px] font-black">Purchase Item</span>
+            <span className="ml-auto font-black text-sm opacity-90">₹{amount.toLocaleString()}</span>
         </button>
     );
 }

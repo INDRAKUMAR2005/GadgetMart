@@ -1,11 +1,15 @@
+app:
+  mail:
+    from: ${APP_MAIL_FROM:gadgetmart.77777@gmail.com}
+
 spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${GMAIL_USERNAME}
-    password: ${GMAIL_APP_PASSWORD}
+    username: gadgetmart.77777@gmail.com
+    password: ${GMAIL_APP_PASSWORD:dilh qufc vnbm ykui}
     properties:
       mail:
         smtp:

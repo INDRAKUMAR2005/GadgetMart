@@ -15,6 +15,12 @@ eureka:
     service-url:
       defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
 
+razorpay:
+  key-id: rzp_live_SLViSJp7TtyeW0
+  key-secret: 1l26gyjA81J5t6KLFE2Pm1QL
+  currency: INR
+  company-name: GadgetMart
+
 kafka:
   bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
 stage 4255

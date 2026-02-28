@@ -78,34 +78,34 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
 
     return (
         <div
-            className={`relative rounded-[3.5rem] bg-[#050b2d] border ${borderClass} p-10 flex flex-col md:flex-row items-center justify-between gap-8 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)] group overflow-hidden animate-in-bespoke`}
+            className={`relative rounded-[3.5rem] bg-white border ${borderClass === 'gold-border' ? 'border-indigo-600' : 'border-slate-100'} p-10 flex flex-col md:flex-row items-center justify-between gap-8 transition-all duration-700 hover:shadow-xl group overflow-hidden animate-in-bespoke`}
         >
-            {/* Ambient Background Glow for Own Platform */}
+            {/* Background Glow */}
             {isOwnPlatform && (
-                <div className="absolute top-0 right-0 w-80 h-80 bg-[#d4af37]/5 blur-[100px] -z-10 group-hover:bg-[#d4af37]/10 transition-all duration-1000" />
+                <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-50 blur-[100px] -z-10 group-hover:bg-indigo-100 transition-all duration-1000 opacity-50" />
             )}
 
             {/* Left: Platform Info */}
             <div className="flex items-center gap-8 w-full md:w-auto">
-                <div className="w-24 h-24 flex items-center justify-center rounded-[2.5rem] bg-[#111d43] border border-white/5 p-5 group-hover:scale-110 transition-transform duration-500 shadow-xl relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
+                <div className="w-24 h-24 flex items-center justify-center rounded-[2.5rem] bg-slate-50 border border-slate-100 p-5 group-hover:scale-110 transition-transform duration-500 shadow-sm relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/20 to-transparent opacity-50" />
                     {getPlatformLogo(item.platformName) ? (
-                        <img src={getPlatformLogo(item.platformName)} alt={item.platformName} className={`max-w-full max-h-full object-contain relative z-10 ${item.platformName.toLowerCase().includes('meesho') || item.platformName.toLowerCase().includes('flipkart') ? '' : 'invert'} opacity-80 group-hover:opacity-100 transition-all duration-500`} />
+                        <img src={getPlatformLogo(item.platformName)} alt={item.platformName} className={`max-w-full max-h-full object-contain relative z-10 opacity-90 group-hover:opacity-100 transition-all duration-500`} />
                     ) : (
                         <span className="text-4xl relative z-10">{icon}</span>
                     )}
                 </div>
                 <div>
-                    <h3 className="text-2xl font-black text-white leading-tight mb-2 tracking-tighter uppercase">{item.platformName}</h3>
+                    <h3 className="text-2xl font-black text-slate-900 leading-tight mb-2 tracking-tighter uppercase">{item.platformName}</h3>
                     <div className="flex flex-wrap items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]"></span>
-                            <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em]">
-                                Live {new Date(item.fetchedAt).toLocaleTimeString()}
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                                Verified {new Date(item.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </p>
                         </div>
                         {item.promoCode && (
-                            <span className="text-[10px] text-[#d4af37] font-black bg-[#d4af37]/10 px-4 py-1.5 rounded-full uppercase tracking-[0.2em] border border-[#d4af37]/20">
+                            <span className="text-[10px] text-indigo-600 font-black bg-indigo-50 px-4 py-1.5 rounded-full uppercase tracking-[0.2em] border border-indigo-100">
                                 {item.promoCode}
                             </span>
                         )}
@@ -116,10 +116,10 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
             {/* Right: Price + Action */}
             <div className="flex flex-col items-end gap-6 w-full md:w-auto">
                 <div className="text-right">
-                    <span className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em] block mb-2">Authenticated Price</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block mb-2">Today's Price</span>
                     <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-bold text-[#d4af37]">₹</span>
-                        <p className="text-5xl font-black text-white italic tracking-tighter">
+                        <span className="text-xl font-bold text-indigo-600">₹</span>
+                        <p className="text-5xl font-black text-slate-900 italic tracking-tighter leading-none">
                             {item.price.toLocaleString("en-IN")}
                         </p>
                     </div>
@@ -128,10 +128,10 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
                 <div className="flex flex-wrap gap-4 w-full md:w-auto justify-end">
                     <button
                         onClick={handleAddToCart}
-                        className={`px-8 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${added ? "bg-green-600 border-green-600 text-white" : "bg-transparent border-white/10 text-white hover:bg-white/5 hover:border-white/20"
+                        className={`px-8 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${added ? "bg-green-600 border-green-600 text-white shadow-lg" : "bg-white border-slate-100 text-slate-900 hover:bg-slate-50 hover:border-indigo-200 shadow-sm"
                             }`}
                     >
-                        {added ? "✓ In Repository" : "Reserve Item"}
+                        {added ? "✓ Added" : "Add to Cart"}
                     </button>
 
                     {isOwnPlatform ? (
@@ -139,13 +139,14 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
                             href={`/checkout?product=${encodeURIComponent(productName)}&amount=${item.price}&email=${encodeURIComponent(userEmail || "")}`}
                             className="premium-btn px-10 py-5 rounded-2xl text-[10px] flex items-center gap-3 animate-in-bespoke"
                         >
-                            Finalize Order
+                            Checkout
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
                         </Link>
                     ) : (
                         <a
                             href={item.platformProductUrl && item.platformProductUrl !== "#" ? item.platformProductUrl : "#"}
                             onClick={(e) => {
+                                // ... (keeping existing logic)
                                 if (!item.platformProductUrl || item.platformProductUrl === "#") {
                                     e.preventDefault();
                                     const cleanName = productName.replace(/\(.*\)/g, '').replace(/Gen\s+\d+/gi, '').replace(/Hot Deal\s*#\d*/gi, '').trim();
@@ -164,9 +165,9 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
                             }}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="outline-btn px-10 py-5 rounded-2xl text-[10px] flex items-center gap-3"
+                            className="bg-white border-2 border-indigo-600 px-10 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600 hover:bg-slate-50 transition-all flex items-center gap-3 shadow-sm"
                         >
-                            Visit Store ↗
+                            Check Store ↗
                         </a>
                     )}
 
@@ -178,7 +179,7 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
                             imageUrl: productImage,
                             price: item.price
                         })}
-                        className="w-16 h-16 rounded-2xl bg-[#111d43] gold-border flex items-center justify-center hover:bg-[#d4af37]/5 transition-all shrink-0"
+                        className="w-16 h-16 rounded-2xl bg-white border border-slate-100 flex items-center justify-center hover:bg-indigo-50 hover:border-indigo-200 transition-all shrink-0 shadow-sm"
                     >
                         <span className="text-xl">🔖</span>
                     </button>
