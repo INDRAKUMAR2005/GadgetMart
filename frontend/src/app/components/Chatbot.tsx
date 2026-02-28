@@ -28,12 +28,17 @@ export default function Chatbot() {
 
         try {
             console.log("Chatbot: Fetching /api/chat...");
+            // Backup timeout to clear loading if it gets stuck
+            const timeout = setTimeout(() => setIsLoading(false), 10000);
+
             const response = await fetch("/api/chat", {
-                // ... (keeping rest of logic same)
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMessage }),
             });
+
+            clearTimeout(timeout);
+            // ... (rest of logic)
 
             const data = await response.json();
 

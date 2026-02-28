@@ -98,9 +98,9 @@ export default function Home() {
 
   const handleSearch = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!user) { router.push('/login'); return; }
     setShowSuggestions(false);
     if (searchQuery.trim()) {
+      console.log("Home: Searching for", searchQuery);
       router.push(`/?q=${encodeURIComponent(searchQuery)}`);
       fetchProductData(searchQuery);
     }
