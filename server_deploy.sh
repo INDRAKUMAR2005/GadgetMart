@@ -18,12 +18,13 @@ echo "🚀 GadgetMart Deployment Starting..."
 
 # ── 1. Pull latest code from GitHub ──────────────────────────────────────────
 echo "⬇️  Pulling latest code from GitHub..."
-cd ~/GadgetMart 2>/dev/null || (git clone https://github.com/INDRAKUMAR2005/GadgetMart.git ~/GadgetMart && cd ~/GadgetMart)
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$PROJECT_DIR"
 git pull origin main
 
 # ── 2. Write the .env file with all needed secrets ───────────────────────────
 echo "🔑 Writing production environment variables..."
-cat > ~/GadgetMart/.env.prod << EOF
+cat > "$PROJECT_DIR/.env.prod" << EOF
 DB_PASSWORD=gm_password_2026
 RAZORPAY_KEY_ID=rzp_live_SLViSJp7TtyeW0
 RAZORPAY_KEY_SECRET=${RAZORPAY_SECRET}
@@ -36,12 +37,11 @@ echo "✅ Environment file written."
 
 # ── 3. Stop old containers ────────────────────────────────────────────────────
 echo "🛑 Stopping old containers..."
-cd ~/GadgetMart
 docker-compose -f docker-compose.prod.yml --env-file .env.prod down 2>/dev/null || true
 
 # ── 4. Build Java Microservices ───────────────────────────────────────────────
 echo "☕ Compiling Java Microservices (This will take a few minutes)..."
-./mvnw clean package -DskipTests
+mvn clean package -DskipTests || (echo "❌ Maven build failed. Make sure 'maven' is installed (sudo apt install maven)." && exit 1)
 
 # ── 5. Start fresh ────────────────────────────────────────────────────────────
 echo "🏗️  Rebuilding and starting all services..."
