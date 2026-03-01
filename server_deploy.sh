@@ -39,7 +39,11 @@ echo "🛑 Stopping old containers..."
 cd ~/GadgetMart
 docker-compose -f docker-compose.prod.yml --env-file .env.prod down 2>/dev/null || true
 
-# ── 4. Start fresh ────────────────────────────────────────────────────────────
+# ── 4. Build Java Microservices ───────────────────────────────────────────────
+echo "☕ Compiling Java Microservices (This will take a few minutes)..."
+./mvnw clean package -DskipTests
+
+# ── 5. Start fresh ────────────────────────────────────────────────────────────
 echo "🏗️  Rebuilding and starting all services..."
 docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 
