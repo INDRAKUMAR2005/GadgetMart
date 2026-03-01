@@ -106,6 +106,7 @@ services:
       dockerfile: Dockerfile
     container_name: gad-user
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/gadgetmart_user
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - SPRING_DATA_REDIS_HOST=redis
@@ -124,6 +125,7 @@ services:
       dockerfile: Dockerfile
     container_name: gad-product
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATA_MONGODB_URI=mongodb://gadmun:${DB_PASSWORD}@mongo:27017/gadgetmart_product?authSource=admin
       - SPRING_DATA_REDIS_HOST=redis
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
@@ -142,6 +144,7 @@ services:
       dockerfile: Dockerfile
     container_name: gad-order
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/gadgetmart_order
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
@@ -158,11 +161,13 @@ services:
       dockerfile: Dockerfile
     container_name: gad-payment
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/gadgetmart_payments
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
       - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET}
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - postgres
     networks:
@@ -174,6 +179,7 @@ services:
       dockerfile: Dockerfile
     container_name: gad-search
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9200
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
     depends_on:
@@ -187,6 +193,7 @@ services:
       dockerfile: Dockerfile
     container_name: gad-notification
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - GMAIL_APP_PASSWORD="dilh qufc vnbm ykui"
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
