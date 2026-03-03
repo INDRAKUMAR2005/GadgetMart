@@ -1,7 +1,8 @@
 # 🛒 GadgetMart: Premium Tech Hub
 
 **Live Links:**
-- **Storefront (Frontend):** [http://4.186.24.230:3000](http://4.186.24.230:3000)
+- **Production Storefront (Vercel):** [https://gadget-mart-blond.vercel.app](https://gadget-mart-blond.vercel.app)
+- **VM Storefront (Alternative):** [http://4.186.24.230:3000](http://4.186.24.230:3000)
 - **API Gateway (Backend Root):** [http://4.186.24.230:80](http://4.186.24.230:80)
 - **Service Discovery (Eureka Dashboard):** [http://4.186.24.230:8761](http://4.186.24.230:8761)
 - **Product API (Example):** [http://4.186.24.230:80/api/products/iphone](http://4.186.24.230:80/api/products/iphone)
