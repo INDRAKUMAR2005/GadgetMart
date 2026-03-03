@@ -183,7 +183,7 @@ services:
     container_name: gad-search
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9200
+      - ELASTICSEARCH_URIS=http://elasticsearch:9200
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
     depends_on:
       - elasticsearch
