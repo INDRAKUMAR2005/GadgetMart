@@ -108,6 +108,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/gadgetmart_user
+      - SPRING_DATASOURCE_USERNAME=gadmun
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - SPRING_DATA_REDIS_HOST=redis
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
@@ -146,6 +147,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/gadgetmart_order
+      - SPRING_DATASOURCE_USERNAME=gadmun
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
@@ -163,6 +165,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/gadgetmart_payments
+      - SPRING_DATASOURCE_USERNAME=gadmun
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
       - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET}
