@@ -75,19 +75,18 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-center items-center px-6 selection:bg-indigo-100 relative overflow-hidden">
+        <div className="min-h-screen bg-white text-slate-900 flex flex-col justify-center items-center px-6 selection:bg-amber-100 mesh-bg font-main relative overflow-hidden">
             {/* Background Effects */}
-            <div className="fixed inset-0 bg-[radial-gradient(circle at top right,rgba(79,70,229,0.05) 0%,transparent 50%),radial-gradient(circle at bottom left,rgba(212,175,55,0.05) 0%,transparent 40%)] -z-10" />
-            <div className="fixed top-0 left-0 w-full h-full opacity-5 pointer-events-none -z-10" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+            <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.06)_0%,transparent_55%),radial-gradient(circle_at_bottom_left,rgba(212,175,55,0.05)_0%,transparent_45%)] -z-10" />
 
             <div className="w-full max-w-md animate-in-bespoke">
                 {/* Logo */}
                 <div className="flex flex-col items-center mb-16">
                     <button
                         onClick={() => router.push('/')}
-                        className="w-20 h-20 bg-white border-2 border-indigo-600 rounded-[2rem] flex items-center justify-center text-indigo-600 text-4xl font-black shadow-lg hover:scale-110 transition-all duration-700 mb-8 relative group"
+                        className="w-20 h-20 bg-white border-2 border-amber-400 rounded-[2rem] flex items-center justify-center text-amber-500 text-4xl font-black shadow-lg hover:scale-110 transition-all duration-700 mb-8 relative group"
                     >
-                        <div className="absolute inset-0 bg-indigo-50 blur-[20px] rounded-[2rem] opacity-0 group-hover:opacity-100 transition-all" />
+                        <div className="absolute inset-0 bg-amber-50 blur-[20px] rounded-[2rem] opacity-0 group-hover:opacity-100 transition-all" />
                         GM
                     </button>
                     <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none mb-4 text-slate-900">Login</h1>
@@ -96,7 +95,7 @@ export default function LoginPage() {
 
                 {/* Login Form */}
                 <div className="glass-card p-12 rounded-[3.5rem] border border-slate-100 relative group overflow-hidden bg-white shadow-xl">
-                    <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-50 blur-[60px] opacity-20 -z-10" />
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-amber-50 blur-[60px] opacity-20 -z-10" />
 
                     {error && (
                         <div className="mb-8 p-5 bg-red-50 border border-red-100 text-red-600 text-[10px] font-black uppercase tracking-widest rounded-2xl flex items-center gap-3 animate-pulse">
@@ -114,7 +113,7 @@ export default function LoginPage() {
                                         type="email"
                                         required
                                         placeholder="user@example.com"
-                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-slate-900 font-bold placeholder:text-slate-300 focus:outline-none focus:border-indigo-400 transition-all shadow-sm"
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-slate-900 font-bold placeholder:text-slate-300 focus:outline-none focus:border-amber-400 transition-all shadow-sm"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                     />
@@ -140,14 +139,14 @@ export default function LoginPage() {
                             <div className="space-y-4">
                                 <div className="flex justify-between items-end ml-2">
                                     <label className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">OTP Code</label>
-                                    <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">Sent to your email</span>
+                                    <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest">Sent to your email</span>
                                 </div>
                                 <input
                                     type="text"
                                     required
                                     maxLength={6}
                                     placeholder="••••••"
-                                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-center text-4xl font-black tracking-[0.4em] text-slate-900 focus:outline-none focus:border-indigo-400 transition-all placeholder:text-slate-200 shadow-sm"
+                                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-center text-4xl font-black tracking-[0.4em] text-slate-900 focus:outline-none focus:border-amber-400 transition-all placeholder:text-slate-200 shadow-sm"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                                 />
@@ -171,7 +170,7 @@ export default function LoginPage() {
                                 <button
                                     type="button"
                                     disabled={timer > 0 || loading}
-                                    className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all py-2 border-b border-gray-100 self-center ${timer > 0 ? 'text-slate-300' : 'text-indigo-400 hover:text-indigo-600'}`}
+                                    className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all py-2 border-b border-gray-100 self-center ${timer > 0 ? 'text-slate-300' : 'text-amber-500 hover:text-amber-600'}`}
                                     onClick={handleSendOtp}
                                 >
                                     {timer > 0 ? `Resend in ${timer}s` : 'Resend Code'}
