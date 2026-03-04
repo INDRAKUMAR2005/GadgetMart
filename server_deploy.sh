@@ -26,7 +26,7 @@ git pull origin main
 echo "🔑 Writing production environment variables..."
 cat > "$PROJECT_DIR/.env.prod" << EOF
 DB_PASSWORD=gm_password_2026
-RAZORPAY_KEY_ID=rzp_live_SLViSJp7TtyeW0
+RAZORPAY_KEY_ID=rzp_live_SNAX8xikbpmfdP
 RAZORPAY_KEY_SECRET=${RAZORPAY_SECRET}
 GEMINI_API_KEY=${GEMINI_KEY}
 APIFY_TOKEN=
