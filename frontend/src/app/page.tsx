@@ -397,12 +397,24 @@ export default function Home() {
                           <span className="text-xs font-bold text-amber-500">₹</span>
                           <p className='text-2xl sm:text-3xl font-black text-slate-900 italic tracking-tighter'>{gadget.price.toLocaleString()}</p>
                         </div>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); handleSaveProduct({ ...gadget, category: "New Item" }); }}
-                          className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center hover:bg-amber-50 hover:border-amber-200 transition-all shadow-sm"
-                        >
-                          <span className="text-base sm:text-lg">🔖</span>
-                        </button>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (!user) { router.push('/login'); return; }
+                              router.push(`/checkout?product=${encodeURIComponent(gadget.name)}&amount=${gadget.price}&email=${encodeURIComponent(user.email)}`);
+                            }}
+                            className="premium-btn px-4 sm:px-6 py-2 rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest flex items-center gap-1 shadow-sm shrink-0"
+                          >
+                            Buy ⚡
+                          </button>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); handleSaveProduct({ ...gadget, category: "New Item" }); }}
+                            className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center hover:bg-amber-50 hover:border-amber-200 transition-all shadow-sm shrink-0"
+                          >
+                            <span className="text-base sm:text-lg">🔖</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

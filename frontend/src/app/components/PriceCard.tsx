@@ -143,10 +143,9 @@ export default function PriceCard({ item, productName, userEmail, productImage, 
                     {isOwnPlatform ? (
                         <Link
                             href={`/checkout?product=${encodeURIComponent(productName)}&amount=${item.price}&email=${encodeURIComponent(userEmail || "")}`}
-                            className="premium-btn px-8 py-4 rounded-2xl text-[10px] flex items-center gap-2 animate-in-bespoke"
+                            className="premium-btn px-6 sm:px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 animate-in-bespoke shadow-md"
                         >
-                            Checkout
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7-7 7" /></svg>
+                            Buy Now ⚡
                         </Link>
                     ) : (
                         <a
