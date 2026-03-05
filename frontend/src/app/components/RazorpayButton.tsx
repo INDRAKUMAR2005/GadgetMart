@@ -102,11 +102,11 @@ export default function RazorpayButton({
         <button
             id="rzp-button1"
             onClick={handlePayment}
-            className="w-full bg-amber-400 hover:bg-amber-500 active:scale-95 text-slate-900 font-black py-4 sm:py-5 px-6 sm:px-8 rounded-2xl transition-all duration-200 shadow-lg flex items-center justify-center gap-3 group"
+            className="w-full bg-amber-400 hover:bg-amber-500 active:scale-95 text-slate-900 font-black py-5 sm:py-6 px-6 sm:px-8 rounded-2xl transition-all duration-200 shadow-xl flex items-center justify-center gap-4 group"
         >
-            <span className="text-lg sm:text-xl group-hover:scale-110 transition-transform">🛍️</span>
-            <span className="uppercase tracking-widest text-[10px] sm:text-[11px] font-black">Purchase Item</span>
-            <span className="ml-auto font-black text-sm opacity-90">₹{amount.toLocaleString()}</span>
+            <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform">💳</span>
+            <span className="uppercase tracking-widest text-[11px] sm:text-xs font-black">Pay via Razorpay</span>
+            <span className="ml-auto font-black text-base opacity-90">₹{amount.toLocaleString()}</span>
         </button>
     );
 }
